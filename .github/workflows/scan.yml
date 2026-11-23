@@ -29,9 +29,9 @@ jobs:
 
       - name: 4. 執行全市場掃描與繪圖推播
         env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          # 手動點擊執行時自動設為 true，方便測試推播；定時排程則為 false
-          FORCE_TEST: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
+         DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+         FORCE_TEST: ${{ github.event.inputs.force_test || 'false' }}
+         FORCE_DAILY_REPORT: ${{ github.event.inputs.force_daily_report || 'false' }}
         run: python radar.py
 
       - name: 5. 保存冷卻紀錄 (state.json) 避免重複通知
