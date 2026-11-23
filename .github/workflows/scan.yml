@@ -3,7 +3,7 @@ name: Crypto Signal Radar
 on:
   schedule:
     # 每 5 分鐘執行一次（UTC 時間）
-    - cron: "*/5 * * * *"
+    - cron: "*/15 * * * *"
   # 允許在 GitHub 網頁上手動點擊按鈕立即測試
   workflow_dispatch:
 
