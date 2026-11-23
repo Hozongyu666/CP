@@ -22,9 +22,11 @@ FORCE_TEST = os.environ.get("FORCE_TEST", "false").lower() == "true"
 
 TIMEFRAMES = ["15m", "1h", "4h"]     # 同時追蹤的三個時區
 TOP_N_COINS = 30                     # 掃描 24H 成交額前 30 大幣種
-MIN_SCORE_TO_ALERT = 75              # 綜合評分 >= 75 分才發送通知
-COOLDOWN_HOURS = 4                   # 同一幣種＋時區 4 小時內不重複通知
-STATE_FILE = "state.json"            # 用於跨次執行保存冷卻紀錄
+MIN_SCORE_TO_ALERT = 70              # 綜合評分 >= 70 分才發送新訊號通知
+SCAN_INTERVAL_SEC = 180
+COOLDOWN_HOURS = 4                   # 同一幣種＋時區 4 小時內不重複發新單
+MAX_TRACK_HOURS = 72                 # 單筆訊號最長追蹤 72 小時
+STATE_FILE = "state.json"            # 保存冷卻紀錄與追蹤中的訊號
 
 # 100U 資金管理參數
 TOTAL_CAPITAL = 100.0
@@ -35,24 +37,32 @@ BLACKLIST = {"USDC/USDT", "FDUSD/USDT", "TUSD/USDT", "USDP/USDT", "EUR/USDT", "U
 
 
 # ==========================================
-# 2. 狀態讀寫（防止 GitHub Actions 重複發訊）
+# 2. 狀態讀寫（冷卻紀錄 + 追蹤中訂單）
 # ==========================================
 def load_state() -> dict:
-    if os.path.exists(STATE_FILE):
-        try:
-            with open(STATE_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            return {}
-    return {}
+    default_state = {"cooldowns": {}, "active_signals": {}}
+    if not os.path.exists(STATE_FILE):
+        return default_state
+    try:
+        with open(STATE_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        # 相容舊版 state.json 格式
+        if "cooldowns" not in data and "active_signals" not in data:
+            return {"cooldowns": data, "active_signals": {}}
+        data.setdefault("cooldowns", {})
+        data.setdefault("active_signals", {})
+        return data
+    except Exception:
+        return default_state
 
 
 def save_state(state: dict):
-    # 清理超過 24 小時的過期紀錄，保持檔案精簡
     now = time.time()
-    cleaned = {k: v for k, v in state.items() if now - v < 86400}
+    state["cooldowns"] = {
+        k: v for k, v in state.get("cooldowns", {}).items() if now - v < 86400
+    }
     with open(STATE_FILE, "w", encoding="utf-8") as f:
-        json.dump(cleaned, f, indent=2)
+        json.dump(state, f, indent=2, ensure_ascii=False)
 
 
 # ==========================================
@@ -331,7 +341,7 @@ def generate_chart_image(df: pd.DataFrame, setup: dict) -> io.BytesIO:
 
 
 # ==========================================
-# 6. Discord Webhook 卡片＋圖片上傳
+# 6. Discord Webhook 推播（新訊號 + TP/SL 到價通知）
 # ==========================================
 def send_discord_alert(setup: dict, df: pd.DataFrame):
     if not DISCORD_WEBHOOK_URL:
@@ -342,11 +352,11 @@ def send_discord_alert(setup: dict, df: pd.DataFrame):
     if score >= 85:
         grade = "🔥 極強共振訊號（S級）"
         color = 0x2ECC71
-    elif score >= 75:
+    elif score >= 70:
         grade = "⚡ 強勢突破訊號（A級）"
         color = 0xF1C40F
     else:
-        grade = "🧪 手動觸發測試預覽"
+        grade = "🧪 手動觸發測試預覽（已納入 TP/SL 追蹤）"
         color = 0x3498DB
 
     p = setup["entry"]
@@ -370,7 +380,7 @@ def send_discord_alert(setup: dict, df: pd.DataFrame):
             {"name": "🧠 多指標評分拆解", "value": detail_text, "inline": False},
         ],
         "image": {"url": "attachment://chart.png"},
-        "footer": {"text": f"GitHub Actions 雲端雷達 • UTC {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')}"},
+        "footer": {"text": f"已開啟自動追蹤 TP/SL • UTC {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')}"},
     }
 
     payload = {"username": "量化訊號雷達 (100U戰隊)", "embeds": [embed]}
@@ -381,22 +391,148 @@ def send_discord_alert(setup: dict, df: pd.DataFrame):
         data = {"payload_json": json.dumps(payload)}
         resp = requests.post(DISCORD_WEBHOOK_URL, data=data, files=files, timeout=15)
         if resp.status_code in (200, 204):
-            print(f"✅ 已發送 Discord 圖文通知: {setup['symbol']} [{setup['timeframe']}] ({score}分)")
+            print(f"✅ 已發送新訊號圖文: {setup['symbol']} [{setup['timeframe']}] ({score}分)")
         else:
             print(f"❌ Discord 發送失敗 ({resp.status_code}): {resp.text}")
     except Exception as e:
         print(f"❌ Discord 連線或繪圖異常: {e}")
 
 
+def send_outcome_alert(sig: dict, event_type: str, trigger_price: float):
+    """發送 TP1 / TP2 / SL 觸價回報卡片"""
+    if not DISCORD_WEBHOOK_URL:
+        return
+
+    entry = sig["entry"]
+    p = entry
+    fmt = ".6f" if p < 0.1 else (".4f" if p < 10 else ".2f")
+    tv_symbol = sig["symbol"].replace("/", "")
+    elapsed_min = int((time.time() - sig["created_at"]) / 60)
+
+    if event_type == "TP1":
+        pct = (sig["tp1"] - entry) / entry * 100
+        title = f"🎯 止盈 1 達標 (TP1) | {sig['symbol']} 【{sig['timeframe']}】"
+        color = 0x1ABC9C
+        desc = (
+            f"價格已觸及第一止盈目標 **`{sig['tp1']:{fmt}}`**（漲幅 **`+{pct:.2f}%`**）！\n"
+            f"💡 **建議操作**：可先平掉一半倉位鎖定利潤，並將剩餘倉位止損移至進場價 **`{entry:{fmt}}`** 保本，系統將繼續幫你追蹤 **TP2**。"
+        )
+    elif event_type == "TP2":
+        pct = (sig["tp2"] - entry) / entry * 100
+        title = f"🚀 止盈 2 完美達標 (TP2) | {sig['symbol']} 【{sig['timeframe']}】"
+        color = 0x2ECC71
+        desc = (
+            f"價格強勢衝破第二止盈目標 **`{sig['tp2']:{fmt}}`**（波段漲幅 **`+{pct:.2f}%`**）！\n"
+            f"🏁 本筆訊號已全數達標並結束追蹤。"
+        )
+    else:  # SL
+        pct = (sig["sl"] - entry) / entry * 100
+        title = f"🛑 觸及止損出場 (SL) | {sig['symbol']} 【{sig['timeframe']}】"
+        color = 0xE74C3C
+        tp1_note = "\n*(註：此單先前已觸及過 TP1，若已平半倉推保本則實際為小賺/平手出場)*" if sig.get("tp1_hit") else ""
+        desc = (
+            f"價格回落觸及設定止損位 **`{sig['sl']:{fmt}}`**（幅度 **`{pct:.2f}%`**）。{tp1_note}\n"
+            f"🛡️ 嚴格執行風控，本筆訊號已結束追蹤。"
+        )
+
+    embed = {
+        "title": title,
+        "description": f"{desc}\n📊 [開啟 TradingView 查看走勢](https://www.tradingview.com/chart/?symbol=OKX:{tv_symbol})",
+        "color": color,
+        "fields": [
+            {"name": "📍 原進場價 (Entry)", "value": f"`{entry:{fmt}}`", "inline": True},
+            {"name": "🎯 TP1 / 🚀 TP2", "value": f"`{sig['tp1']:{fmt}}` / `{sig['tp2']:{fmt}}`", "inline": True},
+            {"name": "🛑 原止損價 (SL)", "value": f"`{sig['sl']:{fmt}}`", "inline": True},
+        ],
+        "footer": {"text": f"訊號發出後耗時約 {elapsed_min} 分鐘 • UTC {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')}"},
+    }
+
+    payload = {"username": "量化訊號雷達 (戰報追蹤)", "embeds": [embed]}
+    try:
+        resp = requests.post(DISCORD_WEBHOOK_URL, json=payload, timeout=10)
+        if resp.status_code in (200, 204):
+            print(f"📣 已發送 [{event_type}] 到價通知: {sig['symbol']} [{sig['timeframe']}]")
+    except Exception as e:
+        print(f"❌ 發送到價通知失敗: {e}")
+
+
 # ==========================================
-# 7. 單次全市場掃描入口
+# 7. 追蹤既有訊號是否觸及 TP1 / TP2 / SL
+# ==========================================
+def check_active_signals(exchange, active_signals: dict):
+    if not active_signals:
+        return
+
+    print(f"🔎 正在檢查 {len(active_signals)} 筆追蹤中訊號的 TP/SL 狀態...")
+    now = time.time()
+
+    for key in list(active_signals.keys()):
+        sig = active_signals[key]
+
+        # 超過最長追蹤時間（72 小時）自動移除
+        if now - sig["created_at"] > MAX_TRACK_HOURS * 3600:
+            print(f"⌛ {key} 追蹤已滿 {MAX_TRACK_HOURS} 小時，自動結束追蹤")
+            del active_signals[key]
+            continue
+
+        try:
+            # 抓取自上次檢查以來的所有 5 分鐘 K 線，確保盤中上下影線插針也能精準抓到
+            since_ms = int(sig.get("last_checked_ms", sig["created_at"] * 1000))
+            candles = exchange.fetch_ohlcv(sig["symbol"], "5m", since=since_ms, limit=200)
+            if not candles:
+                continue
+
+            closed_or_done = False
+            for c in candles:
+                c_ts, c_open, c_high, c_low, c_close, _ = c
+
+                # 1. 保守原則：優先檢查是否觸及止損 (SL)
+                if c_low <= sig["sl"]:
+                    send_outcome_alert(sig, "SL", sig["sl"])
+                    del active_signals[key]
+                    closed_or_done = True
+                    break
+
+                # 2. 檢查是否觸及 TP1（尚未觸及過 TP1 時）
+                if not sig.get("tp1_hit", False) and c_high >= sig["tp1"]:
+                    sig["tp1_hit"] = True
+                    # 若同一根 K 線直接衝破 TP2，直接發 TP2 全止盈通知
+                    if c_high >= sig["tp2"]:
+                        send_outcome_alert(sig, "TP2", sig["tp2"])
+                        del active_signals[key]
+                        closed_or_done = True
+                        break
+                    else:
+                        send_outcome_alert(sig, "TP1", sig["tp1"])
+
+                # 3. 已經過 TP1 後，檢查是否觸及 TP2
+                elif sig.get("tp1_hit", False) and c_high >= sig["tp2"]:
+                    send_outcome_alert(sig, "TP2", sig["tp2"])
+                    del active_signals[key]
+                    closed_or_done = True
+                    break
+
+            # 若仍在追蹤中，更新最後檢查時間戳為最新一根 5m K 線的開盤時間
+            if not closed_or_done and key in active_signals:
+                active_signals[key]["last_checked_ms"] = candles[-1][0]
+
+        except Exception as e:
+            print(f"[追蹤檢查異常] {key}: {e}")
+
+
+# ==========================================
+# 8. 單次全市場掃描主流程
 # ==========================================
 def run_scan():
-    # 使用 OKX 公開行情介面（不被 GitHub Actions 美國 Azure 機房 IP 封鎖）
     exchange = ccxt.okx({"enableRateLimit": True})
-    alert_history = load_state()
+    state = load_state()
+    cooldowns = state["cooldowns"]
+    active_signals = state["active_signals"]
 
-    # 1. 取得全市場前 N 大活躍 USDT 現貨
+    # 第一步：優先檢查既有訂單有沒有打到 TP1 / TP2 / SL
+    check_active_signals(exchange, active_signals)
+
+    # 第二步：掃描全市場前 N 大活躍 USDT 現貨尋找新機會
     tickers = exchange.fetch_tickers()
     usdt_pairs = []
     for sym, t in tickers.items():
@@ -411,7 +547,7 @@ def run_scan():
     usdt_pairs.sort(key=lambda x: x[1], reverse=True)
     symbols = [sym for sym, _ in usdt_pairs[:TOP_N_COINS]]
 
-    # 2. 評估 BTC 大盤環境分
+    # 評估 BTC 大盤環境分
     try:
         ohlcv_btc = exchange.fetch_ohlcv("BTC/USDT", "1h", limit=210)
         df_btc = compute_indicators(pd.DataFrame(ohlcv_btc, columns=["ts", "open", "high", "low", "close", "volume"]))
@@ -430,6 +566,24 @@ def run_scan():
 
     all_candidates = []
     now = time.time()
+
+    def register_and_alert(setup: dict, df_tf: pd.DataFrame):
+        state_key = f"{setup['symbol']}_{setup['timeframe']}"
+        send_discord_alert(setup, df_tf)
+        cooldowns[state_key] = now
+        # 將這筆訊號寫入 active_signals，後續每次掃描自動追蹤 TP/SL
+        active_signals[state_key] = {
+            "symbol": setup["symbol"],
+            "timeframe": setup["timeframe"],
+            "score": setup["score"],
+            "entry": setup["entry"],
+            "sl": setup["sl"],
+            "tp1": setup["tp1"],
+            "tp2": setup["tp2"],
+            "tp1_hit": False,
+            "created_at": now,
+            "last_checked_ms": int(now * 1000),
+        }
 
     for sym in symbols:
         try:
@@ -452,25 +606,28 @@ def run_scan():
                 all_candidates.append((setup, df_tf))
 
                 state_key = f"{sym}_{tf}"
-                last_sent = alert_history.get(state_key, 0)
-                if setup["score"] >= MIN_SCORE_TO_ALERT and (now - last_sent > COOLDOWN_HOURS * 3600):
-                    send_discord_alert(setup, df_tf)
-                    alert_history[state_key] = now
+                last_sent = cooldowns.get(state_key, 0)
+                if (
+                    setup["score"] >= MIN_SCORE_TO_ALERT
+                    and (now - last_sent > COOLDOWN_HOURS * 3600)
+                    and state_key not in active_signals
+                ):
+                    register_and_alert(setup, df_tf)
 
         except Exception as e:
             print(f"[跳過] {sym}: {e}")
 
     all_candidates.sort(key=lambda x: x[0]["score"], reverse=True)
-    print(f"📊 本輪掃描完成（BTC 環境分: {btc_score}/15），最高分 Top 5：")
+    print(f"📊 本輪掃描完成（BTC 環境分: {btc_score}/15 | 追蹤中訂單: {len(active_signals)} 筆），最高分 Top 5：")
     for s, _ in all_candidates[:5]:
         print(f"   • {s['symbol']:<12} [{s['timeframe']:<3}] 評分: {s['score']}分")
 
-    # 若是在 GitHub Actions 網頁手動點擊「Run workflow」，強制推播最高分一張測試
     if FORCE_TEST and all_candidates:
-        print("🧪 偵測到手動測試執行，強制發送最高分標的至 Discord...")
-        send_discord_alert(all_candidates[0][0], all_candidates[0][1])
+        top_setup, top_df = all_candidates[0]
+        print("🧪 偵測到手動測試執行，強制發送最高分標的並納入 TP/SL 追蹤...")
+        register_and_alert(top_setup, top_df)
 
-    save_state(alert_history)
+    save_state(state)
 
 
 if __name__ == "__main__":
