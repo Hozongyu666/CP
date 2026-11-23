@@ -1,0 +1,42 @@
+name: Crypto Signal Radar
+
+on:
+  schedule:
+    # 每 5 分鐘執行一次（UTC 時間）
+    - cron: "*/5 * * * *"
+  # 允許在 GitHub 網頁上手動點擊按鈕立即測試
+  workflow_dispatch:
+
+permissions:
+  contents: write  # 允許腳本將更新後的 state.json 存回倉庫
+
+jobs:
+  scan-market:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. 檢出倉庫程式碼
+        uses: actions/checkout@v4
+
+      - name: 2. 設定 Python 環境與套件快取
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: 3. 安裝依賴套件
+        run: pip install -r requirements.txt
+
+      - name: 4. 執行全市場掃描與繪圖推播
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          # 手動點擊執行時自動設為 true，方便測試推播；定時排程則為 false
+          FORCE_TEST: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
+        run: python radar.py
+
+      - name: 5. 保存冷卻紀錄 (state.json) 避免重複通知
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state.json
+          git diff --staged --quiet || (git commit -m "chore: update alert cooldown state" && git push)
