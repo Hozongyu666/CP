@@ -59,7 +59,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795488346.7410452,
-      "last_checked_ms": 1795520100000
+      "last_checked_ms": 1795520400000
     },
     "PUMP/USDT": {
       "system": "MAIN",
@@ -99,7 +99,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795488346.7410452,
-      "last_checked_ms": 1795520100000
+      "last_checked_ms": 1795520400000
     },
     "ZEC/USDT": {
       "system": "MAIN",
@@ -139,7 +139,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795490744.7936592,
-      "last_checked_ms": 1795520100000
+      "last_checked_ms": 1795520400000
     }
   },
   "active_moon": {
@@ -188,7 +188,7 @@
       "realized_u": 0.0,
       "peak_price": 0.005611,
       "created_at": 1795487140.6828053,
-      "last_checked_ms": 1795520100000
+      "last_checked_ms": 1795520400000
     },
     "PROS/USDT:USDT": {
       "system": "MOONSHOT",
@@ -235,7 +235,7 @@
       "realized_u": 0.0,
       "peak_price": 0.679,
       "created_at": 1795519243.4849977,
-      "last_checked_ms": 1795520100000
+      "last_checked_ms": 1795520400000
     }
   },
   "last_heartbeat": 0,
