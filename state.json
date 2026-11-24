@@ -9,6 +9,9 @@
     },
     "MAIN_PUMP/USDT": {
       "last_ts": 1795488346.7410452
+    },
+    "MAIN_ZEC/USDT": {
+      "last_ts": 1795490744.7936592
     }
   },
   "active_main": {
@@ -50,7 +53,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795488346.7410452,
-      "last_checked_ms": 1795490400000
+      "last_checked_ms": 1795490700000
     },
     "PUMP/USDT": {
       "system": "MAIN",
@@ -90,7 +93,47 @@
       },
       "tp1_hit": false,
       "created_at": 1795488346.7410452,
-      "last_checked_ms": 1795490400000
+      "last_checked_ms": 1795490700000
+    },
+    "ZEC/USDT": {
+      "system": "MAIN",
+      "symbol": "ZEC/USDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "matched_tfs": [
+        "4h"
+      ],
+      "score": 84,
+      "tags": [
+        "🎯 反彈確認轉空"
+      ],
+      "history_note": "",
+      "signal_time_tw": "2026-11-24 11:25:48",
+      "current_price": 753.02,
+      "entry": 753.02,
+      "sl": 790.671,
+      "sl_pct": 5.0,
+      "tp1": 696.5434999999999,
+      "tp1_pct": 7.500000000000013,
+      "tp2": 647.5971999999998,
+      "tp2_pct": 14.000000000000023,
+      "leverage": 3,
+      "margin_usdt": 13.3,
+      "notional_usdt": 39.900000000000006,
+      "est_loss_sl": 2.0349000000000004,
+      "est_profit_tp1": 2.952600000000006,
+      "est_profit_tp2": 5.54610000000001,
+      "rr_tp1": 1.5,
+      "rr_tp2": 2.8,
+      "breakdown": {
+        "雙週期空頭": "30/30",
+        "順風形態": "26/32",
+        "量能確認": "13/18",
+        "大盤/RSI": "15/20"
+      },
+      "tp1_hit": false,
+      "created_at": 1795490744.7936592,
+      "last_checked_ms": 1795490744793
     }
   },
   "active_moon": {
@@ -139,7 +182,7 @@
       "realized_u": 0.0,
       "peak_price": 0.005611,
       "created_at": 1795487140.6828053,
-      "last_checked_ms": 1795490400000
+      "last_checked_ms": 1795490700000
     }
   },
   "last_heartbeat": 0,
@@ -156,7 +199,7 @@
   },
   "daily_stats": {
     "date": "2026-11-24",
-    "main_sent": 2,
+    "main_sent": 3,
     "moon_sent": 1,
     "wins": 0,
     "losses": 0,
