@@ -30,6 +30,9 @@
     },
     "MAIN_WLD/USDT": {
       "last_ts": 1795533061.819168
+    },
+    "MAIN_DOGE/USDT": {
+      "last_ts": 1795533645.0530233
     }
   },
   "active_main": {
@@ -71,7 +74,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795488346.7410452,
-      "last_checked_ms": 1795533300000
+      "last_checked_ms": 1795533600000
     },
     "PUMP/USDT": {
       "system": "MAIN",
@@ -111,7 +114,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795488346.7410452,
-      "last_checked_ms": 1795533300000
+      "last_checked_ms": 1795533600000
     },
     "ZEC/USDT": {
       "system": "MAIN",
@@ -151,7 +154,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795490744.7936592,
-      "last_checked_ms": 1795533300000
+      "last_checked_ms": 1795533600000
     },
     "AVAX/USDT": {
       "system": "MAIN",
@@ -191,7 +194,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795526152.9768262,
-      "last_checked_ms": 1795533300000
+      "last_checked_ms": 1795533600000
     },
     "LINK/USDT": {
       "system": "MAIN",
@@ -231,7 +234,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795527058.2461267,
-      "last_checked_ms": 1795533300000
+      "last_checked_ms": 1795533600000
     },
     "WLD/USDT": {
       "system": "MAIN",
@@ -271,7 +274,47 @@
       },
       "tp1_hit": false,
       "created_at": 1795533061.819168,
-      "last_checked_ms": 1795533300000
+      "last_checked_ms": 1795533600000
+    },
+    "DOGE/USDT": {
+      "system": "MAIN",
+      "symbol": "DOGE/USDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "matched_tfs": [
+        "4h"
+      ],
+      "score": 84,
+      "tags": [
+        "🎯 反彈確認轉空"
+      ],
+      "history_note": "",
+      "signal_time_tw": "2026-11-24 23:20:51",
+      "current_price": 0.05462,
+      "entry": 0.05462,
+      "sl": 0.057351000000000006,
+      "sl_pct": 5.0,
+      "tp1": 0.0505235,
+      "tp1_pct": 7.500000000000005,
+      "tp2": 0.04697319999999999,
+      "tp2_pct": 14.000000000000016,
+      "leverage": 3,
+      "margin_usdt": 13.3,
+      "notional_usdt": 39.900000000000006,
+      "est_loss_sl": 2.0349000000000004,
+      "est_profit_tp1": 2.9526000000000026,
+      "est_profit_tp2": 5.546100000000006,
+      "rr_tp1": 1.5,
+      "rr_tp2": 2.8,
+      "breakdown": {
+        "雙週期空頭": "30/30",
+        "順風形態": "26/32",
+        "量能確認": "13/18",
+        "大盤/RSI": "15/20"
+      },
+      "tp1_hit": false,
+      "created_at": 1795533645.0530233,
+      "last_checked_ms": 1795533645053
     }
   },
   "active_moon": {
@@ -320,7 +363,7 @@
       "realized_u": 0.0,
       "peak_price": 0.005611,
       "created_at": 1795487140.6828053,
-      "last_checked_ms": 1795533300000
+      "last_checked_ms": 1795533600000
     },
     "PROS/USDT:USDT": {
       "system": "MOONSHOT",
@@ -367,7 +410,7 @@
       "realized_u": 0.0,
       "peak_price": 0.679,
       "created_at": 1795519243.4849977,
-      "last_checked_ms": 1795533300000
+      "last_checked_ms": 1795533600000
     },
     "MRNA/USDT:USDT": {
       "system": "MOONSHOT",
@@ -414,7 +457,7 @@
       "realized_u": 0.0,
       "peak_price": 220.51,
       "created_at": 1795531248.9607062,
-      "last_checked_ms": 1795533300000
+      "last_checked_ms": 1795533600000
     }
   },
   "last_heartbeat": 0,
@@ -431,7 +474,7 @@
   },
   "daily_stats": {
     "date": "2026-11-24",
-    "main_sent": 6,
+    "main_sent": 7,
     "moon_sent": 4,
     "wins": 0,
     "losses": 1,
