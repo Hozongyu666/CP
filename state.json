@@ -3,9 +3,96 @@
   "coin_history": {
     "MOON_SAHARA/USDT:USDT": {
       "last_ts": 1795487140.6828053
+    },
+    "MAIN_ETH/USDT": {
+      "last_ts": 1795488346.7410452
+    },
+    "MAIN_PUMP/USDT": {
+      "last_ts": 1795488346.7410452
     }
   },
-  "active_main": {},
+  "active_main": {
+    "ETH/USDT": {
+      "system": "MAIN",
+      "symbol": "ETH/USDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "matched_tfs": [
+        "1h"
+      ],
+      "score": 79,
+      "tags": [
+        "📉 順勢跌破支撐"
+      ],
+      "history_note": "",
+      "signal_time_tw": "2026-11-24 10:45:50",
+      "current_price": 1689.5,
+      "entry": 1689.5,
+      "sl": 1773.9750000000001,
+      "sl_pct": 5.0,
+      "tp1": 1562.7875,
+      "tp1_pct": 7.500000000000005,
+      "tp2": 1452.9699999999996,
+      "tp2_pct": 14.000000000000027,
+      "leverage": 3,
+      "margin_usdt": 13.3,
+      "notional_usdt": 39.900000000000006,
+      "est_loss_sl": 2.0349000000000004,
+      "est_profit_tp1": 2.9526000000000026,
+      "est_profit_tp2": 5.546100000000011,
+      "rr_tp1": 1.5,
+      "rr_tp2": 2.8,
+      "breakdown": {
+        "雙週期空頭": "23/30",
+        "順風形態": "28/32",
+        "量能確認": "13/18",
+        "大盤/RSI": "15/20"
+      },
+      "tp1_hit": false,
+      "created_at": 1795488346.7410452,
+      "last_checked_ms": 1795488346741
+    },
+    "PUMP/USDT": {
+      "system": "MAIN",
+      "symbol": "PUMP/USDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "matched_tfs": [
+        "1h"
+      ],
+      "score": 79,
+      "tags": [
+        "📉 順勢跌破支撐"
+      ],
+      "history_note": "",
+      "signal_time_tw": "2026-11-24 10:45:56",
+      "current_price": 0.002494,
+      "entry": 0.002494,
+      "sl": 0.0026187000000000003,
+      "sl_pct": 5.0,
+      "tp1": 0.00230695,
+      "tp1_pct": 7.50000000000001,
+      "tp2": 0.00214484,
+      "tp2_pct": 14.000000000000009,
+      "leverage": 3,
+      "margin_usdt": 13.3,
+      "notional_usdt": 39.900000000000006,
+      "est_loss_sl": 2.0349000000000004,
+      "est_profit_tp1": 2.9526000000000043,
+      "est_profit_tp2": 5.5461000000000045,
+      "rr_tp1": 1.5,
+      "rr_tp2": 2.8,
+      "breakdown": {
+        "雙週期空頭": "23/30",
+        "順風形態": "28/32",
+        "量能確認": "13/18",
+        "大盤/RSI": "15/20"
+      },
+      "tp1_hit": false,
+      "created_at": 1795488346.7410452,
+      "last_checked_ms": 1795488346741
+    }
+  },
   "active_moon": {
     "SAHARA/USDT:USDT": {
       "system": "MOONSHOT",
@@ -52,7 +139,7 @@
       "realized_u": 0.0,
       "peak_price": 0.005611,
       "created_at": 1795487140.6828053,
-      "last_checked_ms": 1795488000000
+      "last_checked_ms": 1795488300000
     }
   },
   "last_heartbeat": 0,
@@ -69,7 +156,7 @@
   },
   "daily_stats": {
     "date": "2026-11-24",
-    "main_sent": 0,
+    "main_sent": 2,
     "moon_sent": 1,
     "wins": 0,
     "losses": 0,
