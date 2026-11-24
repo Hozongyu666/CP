@@ -21,6 +21,9 @@
     },
     "MAIN_AVAX/USDT": {
       "last_ts": 1795526152.9768262
+    },
+    "MAIN_LINK/USDT": {
+      "last_ts": 1795527058.2461267
     }
   },
   "active_main": {
@@ -62,7 +65,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795488346.7410452,
-      "last_checked_ms": 1795526700000
+      "last_checked_ms": 1795527000000
     },
     "PUMP/USDT": {
       "system": "MAIN",
@@ -102,7 +105,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795488346.7410452,
-      "last_checked_ms": 1795526700000
+      "last_checked_ms": 1795527000000
     },
     "ZEC/USDT": {
       "system": "MAIN",
@@ -142,7 +145,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795490744.7936592,
-      "last_checked_ms": 1795526700000
+      "last_checked_ms": 1795527000000
     },
     "AVAX/USDT": {
       "system": "MAIN",
@@ -182,7 +185,47 @@
       },
       "tp1_hit": false,
       "created_at": 1795526152.9768262,
-      "last_checked_ms": 1795526700000
+      "last_checked_ms": 1795527000000
+    },
+    "LINK/USDT": {
+      "system": "MAIN",
+      "symbol": "LINK/USDT",
+      "timeframe": "4h",
+      "side": "SHORT",
+      "matched_tfs": [
+        "4h"
+      ],
+      "score": 74,
+      "tags": [
+        "🎯 反彈確認轉空"
+      ],
+      "history_note": "",
+      "signal_time_tw": "2026-11-24 21:31:06",
+      "current_price": 8.862,
+      "entry": 8.862,
+      "sl": 9.305100000000001,
+      "sl_pct": 5.0,
+      "tp1": 8.197349999999998,
+      "tp1_pct": 7.5000000000000195,
+      "tp2": 7.621319999999997,
+      "tp2_pct": 14.000000000000032,
+      "leverage": 3,
+      "margin_usdt": 13.3,
+      "notional_usdt": 39.900000000000006,
+      "est_loss_sl": 2.0349000000000004,
+      "est_profit_tp1": 2.9526000000000083,
+      "est_profit_tp2": 5.546100000000013,
+      "rr_tp1": 1.5,
+      "rr_tp2": 2.8,
+      "breakdown": {
+        "雙週期空頭": "15/30",
+        "順風形態": "26/32",
+        "量能確認": "18/18",
+        "大盤/RSI": "15/20"
+      },
+      "tp1_hit": false,
+      "created_at": 1795527058.2461267,
+      "last_checked_ms": 1795527058246
     }
   },
   "active_moon": {
@@ -231,7 +274,7 @@
       "realized_u": 0.0,
       "peak_price": 0.005611,
       "created_at": 1795487140.6828053,
-      "last_checked_ms": 1795526700000
+      "last_checked_ms": 1795527000000
     },
     "PROS/USDT:USDT": {
       "system": "MOONSHOT",
@@ -278,7 +321,7 @@
       "realized_u": 0.0,
       "peak_price": 0.679,
       "created_at": 1795519243.4849977,
-      "last_checked_ms": 1795526700000
+      "last_checked_ms": 1795527000000
     }
   },
   "last_heartbeat": 0,
@@ -295,7 +338,7 @@
   },
   "daily_stats": {
     "date": "2026-11-24",
-    "main_sent": 4,
+    "main_sent": 5,
     "moon_sent": 3,
     "wins": 0,
     "losses": 1,
