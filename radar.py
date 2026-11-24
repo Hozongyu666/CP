@@ -15,18 +15,17 @@ import pandas as pd
 import requests
 
 # ==========================================
-# 1. 核心設定區（v5 雙引擎架構：穩健主趨勢 + 高R暴漲妖幣狙擊）
+# 1. 核心設定區（v5.1 結構支撐校準版）
 # ==========================================
 DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL", "")
 FORCE_TEST = os.environ.get("FORCE_TEST", "false").strip().lower() == "true"
 FORCE_DAILY_REPORT = os.environ.get("FORCE_DAILY_REPORT", "false").strip().lower() == "true"
 
 TW_TZ = timezone(timedelta(hours=8))  # 台灣時區 (UTC+8)
-STATE_VERSION = 5                    # v5 雙系統獨立追蹤版本
+STATE_VERSION = 6                    # v5.1 結構支撐校準版
 STATE_FILE = "state.json"
 
-# --- 系統一（穩健主趨勢）參數 ---
-MAIN_TIMEFRAMES = ["1h", "4h"]
+# --- 系統一（穩健主趨勢）參數：與 v4.2 回測 100% 對齊 ---
 MAIN_MIN_SCORE = 74
 MAIN_COOLDOWN_MIN = 240
 MAIN_MAX_HOURS = 48
@@ -34,14 +33,13 @@ INITIAL_CAPITAL = 100.0
 MAIN_RISK_PCT = 0.02
 
 # --- 系統二（高R暴漲妖幣狙擊）參數 ---
-MOON_MIN_SCORE = 72                  # 暴漲模型達 72 分即觸發狙擊
-MOON_COOLDOWN_MIN = 360              # 同一妖幣 6 小時內不重複喊單
-MOON_MAX_HOURS = 72                  # 暴漲波段最長追蹤 72 小時
-MOON_MARGIN_USDT = 15.0              # 固定「彩票型逐倉保證金」15U（最大虧損鎖死 15U）
+MOON_MIN_SCORE = 72
+MOON_COOLDOWN_MIN = 360
+MOON_MAX_HOURS = 72
+MOON_MARGIN_USDT = 15.0
 
 HEARTBEAT_HOURS = 4
 
-# 排除穩定幣、黃金代幣與 OKX 美股/ETF 合成代幣
 BLACKLIST_BASE = {
     "USDC", "FDUSD", "TUSD", "USDP", "EUR", "USD1", "DAI",
     "XAUT", "PAXG",
@@ -98,8 +96,8 @@ def create_fresh_state() -> dict:
     return {
         "version": STATE_VERSION,
         "coin_history": {},
-        "active_main": {},           # 系統一追蹤中訂單
-        "active_moon": {},           # 系統二（暴漲妖幣）追蹤中訂單
+        "active_main": {},
+        "active_moon": {},
         "last_heartbeat": 0,
         "last_daily_report_date": "",
         "stats_main": {"wins": 0, "losses": 0, "net_pnl_u": 0.0},
@@ -123,7 +121,7 @@ def load_state() -> dict:
         with open(STATE_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
         if data.get("version") != STATE_VERSION:
-            print("🔄 升級至 v5 雙系統架構，已初始化獨立追蹤帳本！")
+            print("🔄 升級至 v5.1 結構支撐校準版，已初始化乾淨帳本！")
             return create_fresh_state()
         if data.get("daily_stats", {}).get("date") != today:
             data["daily_stats"] = {
@@ -163,21 +161,14 @@ def get_footer_text(state: dict, system_type: str) -> str:
 
 
 # ==========================================
-# 4. OKX 永續合約微結構接口（即時 OI 變化 + 負費率軋空偵測）
+# 4. OKX 永續合約微結構接口
 # ==========================================
 def fetch_swap_oi_and_funding(inst_id: str) -> tuple[float | None, float | None, float | None]:
-    """
-    查詢單一永續合約的：
-    1. 近 1 小時持倉量 (OI) 變化 %
-    2. 近 3 小時持倉量 (OI) 變化 %
-    3. 當前資金費率 %
-    """
     oi_1h_pct = None
     oi_3h_pct = None
     funding_pct = None
 
     try:
-        # 1. 抓取近 5 根 1H 持倉量歷史（無需等待快取暖機，當下直接算出異常增倉）
         r_oi = requests.get(
             "https://www.okx.com/api/v5/rubik/stat/contracts/open-interest-history",
             params={"instId": inst_id, "period": "1H", "limit": "5"},
@@ -185,20 +176,17 @@ def fetch_swap_oi_and_funding(inst_id: str) -> tuple[float | None, float | None,
         ).json()
         rows = r_oi.get("data", [])
         if len(rows) >= 2:
-            cur_oi = float(rows[0][2])
-            prev_1h = float(rows[1][2])
+            cur_oi, prev_1h = float(rows[0][2]), float(rows[1][2])
             if prev_1h > 0:
                 oi_1h_pct = (cur_oi - prev_1h) / prev_1h * 100
         if len(rows) >= 4:
-            cur_oi = float(rows[0][2])
-            prev_3h = float(rows[3][2])
+            cur_oi, prev_3h = float(rows[0][2]), float(rows[3][2])
             if prev_3h > 0:
                 oi_3h_pct = (cur_oi - prev_3h) / prev_3h * 100
     except Exception:
         pass
 
     try:
-        # 2. 抓取當前資金費率
         r_fr = requests.get(
             "https://www.okx.com/api/v5/public/funding-rate",
             params={"instId": inst_id},
@@ -218,7 +206,7 @@ def fetch_swap_oi_and_funding(inst_id: str) -> tuple[float | None, float | None,
 # ==========================================
 def compute_indicators(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
-    close, high, low, open_, vol = df["close"], df["high"], df["low"], df["open"], df["volume"]
+    close, high, low, vol = df["close"], df["high"], df["low"], df["volume"]
 
     df["ema20"] = close.ewm(span=20, adjust=False).mean()
     df["ema50"] = close.ewm(span=50, adjust=False).mean()
@@ -227,7 +215,6 @@ def compute_indicators(df: pd.DataFrame) -> pd.DataFrame:
     typical_price = (high + low + close) / 3.0
     df["vwap"] = (typical_price * vol).rolling(24).sum() / vol.rolling(24).sum().replace(0, np.nan)
 
-    # 布林帶與壓縮分位數
     bb_mid = close.rolling(20).mean()
     bb_std = close.rolling(20).std()
     df["bb_upper"] = bb_mid + 2.0 * bb_std
@@ -273,12 +260,9 @@ def compute_indicators(df: pd.DataFrame) -> pd.DataFrame:
 
 
 # ==========================================
-# 6. 【系統二】高R暴漲妖幣狙擊引擎（尋找能翻 10 倍以上的屌幣）
+# 6. 【系統二】高R暴漲妖幣狙擊引擎
 # ==========================================
 def evaluate_moonshot(symbol: str, inst_id: str, df_1h: pd.DataFrame) -> dict | None:
-    """
-    專抓「低位極致吸籌 + 3x以上爆量起爆 + OI異常暴增 + 負費率軋空」的超強妖幣
-    """
     if len(df_1h) < 60:
         return None
 
@@ -294,36 +278,25 @@ def evaluate_moonshot(symbol: str, inst_id: str, df_1h: pd.DataFrame) -> dict | 
     if np.isnan(atr) or atr <= 0 or np.isnan(vol_r):
         return None
 
-    # 1. 基礎起爆過濾：必須是上漲陽線、突破前 20 根箱體高點、且當小時量能至少 2.5 倍以上
-    if price <= open_p:
-        return None
-    if price <= float(live["donchian_high"]):
-        return None
-    if vol_r < 2.5:
+    if price <= open_p or price <= float(live["donchian_high"]) or vol_r < 2.5:
         return None
 
-    # 2. 防假突破長上影線（實體必須佔整根 K 線 65% 以上）
     bar_range = high_p - low_p
     if bar_range > 0 and (high_p - price) / bar_range > 0.35:
         return None
 
-    # 3. 避免買在已經連續暴漲 50% 的終點站（近 12 小時漲幅限制在 3% ~ 28% 之間的「起漲初期」）
     price_12h_ago = float(df_1h["close"].iloc[-13])
-    gain_12h = (price - price_12h_ago) / price_12h_ago
-    if gain_12h > 0.28:
+    if (price - price_12h_ago) / price_12h_ago > 0.28:
         return None
 
-    # 通過初篩後，即時調閱 OKX 永續合約持倉量 (OI) 與資金費率（最關鍵的軋空燃料驗證）
     oi_1h, oi_3h, fr_pct = fetch_swap_oi_and_funding(inst_id)
 
     tags = []
     breakdown = {}
 
-    # 維度 A：盤整極致壓縮與起爆形態 (30分)
     recent_min_bb = float(df_1h["bb_width"].iloc[-5:-1].min())
     q25_bb = float(prev["bb_width_q25"]) if not np.isnan(prev["bb_width_q25"]) else recent_min_bb
-    was_coiled = recent_min_bb <= q25_bb * 1.15
-    if was_coiled:
+    if recent_min_bb <= q25_bb * 1.15:
         s_struct = 30
         tags.append("🌀 底部極致吸籌壓縮")
     else:
@@ -331,7 +304,6 @@ def evaluate_moonshot(symbol: str, inst_id: str, df_1h: pd.DataFrame) -> dict | 
         tags.append("🚀 強勢箱體突破")
     breakdown["吸籌壓縮"] = f"{s_struct}/30"
 
-    # 維度 B：成交量核爆倍數 (25分)
     if vol_r >= 5.0:
         s_vol = 25
         tags.append(f"💣 核爆級巨量 ({vol_r:.1f}x)")
@@ -343,8 +315,6 @@ def evaluate_moonshot(symbol: str, inst_id: str, df_1h: pd.DataFrame) -> dict | 
         tags.append(f"📈 放量啟動 ({vol_r:.1f}x)")
     breakdown["量能核爆"] = f"{s_vol}/25 ({vol_r:.1f}x)"
 
-    # 維度 C：合約持倉量 (OI) 異常暴增 (25分)
-    s_oi = 0
     oi_max_chg = max([x for x in (oi_1h, oi_3h) if x is not None], default=None)
     if oi_max_chg is not None:
         if oi_max_chg >= 10.0:
@@ -355,14 +325,14 @@ def evaluate_moonshot(symbol: str, inst_id: str, df_1h: pd.DataFrame) -> dict | 
             tags.append(f"🐳 持倉暴增 OI {oi_max_chg:+.1f}%")
         elif oi_max_chg >= 1.5:
             s_oi = 10
+        else:
+            s_oi = 0
         oi_str = f"1H:{oi_1h:+.1f}% / 3H:{oi_3h:+.1f}%" if (oi_1h is not None and oi_3h is not None) else f"{oi_max_chg:+.1f}%"
     else:
         s_oi = 10
         oi_str = "OI查詢逾時"
     breakdown["異常增倉"] = f"{s_oi}/25 ({oi_str})"
 
-    # 維度 D：負資金費率軋空燃料 (20分)
-    s_fr = 0
     if fr_pct is not None:
         if fr_pct <= -0.05:
             s_fr = 20
@@ -372,6 +342,8 @@ def evaluate_moonshot(symbol: str, inst_id: str, df_1h: pd.DataFrame) -> dict | 
             tags.append(f"🔥 負費率空軍燃料 ({fr_pct:+.3f}%)")
         elif fr_pct <= 0.01:
             s_fr = 6
+        else:
+            s_fr = 0
         fr_str = f"{fr_pct:+.4f}%"
     else:
         s_fr = 5
@@ -380,24 +352,19 @@ def evaluate_moonshot(symbol: str, inst_id: str, df_1h: pd.DataFrame) -> dict | 
 
     total_score = int(np.clip(s_struct + s_vol + s_oi + s_fr, 0, 100))
 
-    # --- 暴漲單專屬止損與超高 R 階梯目標 ---
-    # 止損放在起爆 K 線低點下方或 2.0 ATR（限制在 3.5% ~ 7.5% 之間，避免被洗掉）
     sl_raw = min(low_p * 0.992, price - 2.0 * atr)
     sl_pct = float(np.clip((price - sl_raw) / price, 0.035, 0.075))
     sl = price * (1 - sl_pct)
 
-    # 根據止損寬度動態設定 8x ~ 10x 逐倉槓桿（確保爆倉價在止損線之外）
     leverage = 10 if sl_pct <= 0.052 else 8
-    margin_usdt = MOON_MARGIN_USDT          # 固定 15U 彩票保證金
-    notional_usdt = margin_usdt * leverage  # 120U ~ 150U 倉位
+    margin_usdt = MOON_MARGIN_USDT
+    notional_usdt = margin_usdt * leverage
 
-    # 三階梯止盈目標（分別對應現貨 +15%、+35%、+80%，剩餘 20% 尾倉吊燈無限追蹤）
     tp1 = price * 1.15
     tp2 = price * 1.35
     tp3 = price * 1.80
 
     est_fee = notional_usdt * 0.001
-    # 若吃滿 TP1(30%) + TP2(30%) + TP3(20%) + 尾倉(20%假設到+120%) 的預期總獲利
     est_jackpot_u = (
         notional_usdt * 0.30 * 0.15
         + notional_usdt * 0.30 * 0.35
@@ -437,17 +404,17 @@ def evaluate_moonshot(symbol: str, inst_id: str, df_1h: pd.DataFrame) -> dict | 
 
 
 # ==========================================
-# 7. 【系統一】主趨勢穩健評估引擎（v4.2 驗證版）
+# 7. 【系統一】主趨勢穩健評估引擎（1H 進場 + 7日結構支撐/壓力牆校準）
 # ==========================================
 def evaluate_main_trend(
-    symbol: str, timeframe: str, df: pd.DataFrame,
+    symbol: str, df_1h: pd.DataFrame, df_4h: pd.DataFrame,
     coin_4h_trend: int, btc_4h_trend: int, current_capital: float
 ) -> dict | None:
     if coin_4h_trend == 0:
         return None
 
-    live = df.iloc[-1]
-    prev = df.iloc[-2]
+    live = df_1h.iloc[-1]
+    prev = df_1h.iloc[-2]
     price = float(live["close"])
     atr = float(live["atr"])
     if np.isnan(atr) or atr <= 0 or (atr / price) < 0.006:
@@ -459,18 +426,23 @@ def evaluate_main_trend(
 
     bar_range = float(live["high"] - live["low"])
     vol_r = float(live["vol_ratio"])
+
+    # 取得過去 7 天（42 根 4H K 線）的結構高低點牆，避免止盈畫到無底洞
+    major_7d_high = float(df_4h["high"].iloc[-42:].max())
+    major_7d_low = float(df_4h["low"].iloc[-42:].min())
+
     candidates = []
 
-    # 做多（必須個股 4H 與 BTC 4H 同步偏多）
+    # ---------------- 做多（4H 與 BTC 4H 同步偏多，1H 進場） ----------------
     if coin_4h_trend > 0 and btc_4h_trend > 0:
         dist_atr = (price - float(live["ema20"])) / atr
         wick_ok = True if bar_range == 0 else ((float(live["high"]) - price) / bar_range <= 0.35)
         if live["close"] > live["open"] and (-0.5 <= dist_atr <= 1.8) and wick_ok:
             s_trend = 15 + (15 if (live["ema20"] > live["ema50"] and price > live["vwap"]) else (8 if price > live["vwap"] else 0))
-            recent_low = float(df["low"].iloc[-3:].min())
+            recent_low = float(df_1h["low"].iloc[-3:].min())
             touched_support = recent_low <= max(float(live["ema20"]), float(live["vwap"])) * 1.005
             bouncing_up = price > float(prev["high"]) and float(live["rsi"]) <= 64 and vol_r >= 1.25 and float(live["macd_hist"]) > float(prev["macd_hist"])
-            was_squeezed = df["bb_width"].iloc[-4:-1].min() <= (float(prev["bb_width_min30"]) * 1.15)
+            was_squeezed = df_1h["bb_width"].iloc[-4:-1].min() <= (float(prev["bb_width_min30"]) * 1.15)
             fresh_break = (price > float(live["donchian_high"])) and (float(prev["close"]) <= float(prev["donchian_high"]) * 1.015)
 
             s_setup = 0
@@ -486,30 +458,45 @@ def evaluate_main_trend(
                 tags.append("🎯 回踩確認突破")
 
             if s_setup > 0:
+                # 計算真實 1H 結構止損；若真實止損超過 3.8% 則直接放棄，不硬截斷
+                sl = min(float(df_1h["swing_low"].iloc[-1]) - 0.3 * atr, price - 1.6 * atr)
+                sl_pct = (price - sl) / price
+                if sl_pct > 0.038:
+                    return None
+                if sl_pct < 0.014:
+                    sl_pct = 0.014
+                    sl = price * (1 - sl_pct)
+
+                risk = price - sl
+                # 對比上方 7 日大壓力牆：若未達 1.3R 就先撞牆，直接放棄
+                resist_ceiling = major_7d_high * 0.997
+                if (resist_ceiling - price) < 1.3 * risk:
+                    return None
+
+                tp1 = min(price + 1.5 * risk, resist_ceiling)
+                # TP2 最多看到略為突破 7 日高點 1.5%，不畫天邊目標
+                tp2 = min(price + 2.6 * risk, major_7d_high * 1.015)
+
                 s_vol = 18 if vol_r >= 1.8 else (13 if vol_r >= 1.25 else 7)
                 s_env = (8 if 48 <= float(live["rsi"]) <= 64 else 4) + 7
                 score = int(np.clip(s_trend + s_setup + s_vol + s_env, 0, 100))
                 if score >= MAIN_MIN_SCORE:
-                    sl = min(float(df["swing_low"].iloc[-1]) - 0.3 * atr, price - 1.8 * atr)
-                    sl_pct = float(np.clip((price - sl) / price, 0.015, 0.050))
-                    sl = price * (1 - sl_pct)
-                    risk = price - sl
                     candidates.append(build_main_dict(
-                        symbol, timeframe, "LONG", score, tags,
-                        {"雙週期趨勢": f"{s_trend}/30", "順風形態": f"{s_setup}/32", "量能確認": f"{s_vol}/18", "大盤/RSI": f"{s_env}/20"},
-                        price, sl, sl_pct, price + 1.5 * risk, price + 2.8 * risk, current_capital
+                        symbol, "1h", "LONG", score, tags,
+                        {"4H+1H順風": f"{s_trend}/30", "順風形態": f"{s_setup}/32", "量能確認": f"{s_vol}/18", "大盤/RSI": f"{s_env}/20"},
+                        price, sl, sl_pct, tp1, tp2, current_capital
                     ))
 
-    # 做空（必須個股 4H 與 BTC 4H 同步偏空）
+    # ---------------- 做空（4H 與 BTC 4H 同步偏空，1H 進場） ----------------
     if coin_4h_trend < 0 and btc_4h_trend < 0:
         dist_atr = (float(live["ema20"]) - price) / atr
         wick_ok = True if bar_range == 0 else ((price - float(live["low"])) / bar_range <= 0.35)
         if live["close"] < live["open"] and (-0.5 <= dist_atr <= 1.8) and wick_ok:
             s_trend = 15 + (15 if (live["ema20"] < live["ema50"] and price < live["vwap"]) else (8 if price < live["vwap"] else 0))
-            recent_high = float(df["high"].iloc[-3:].max())
+            recent_high = float(df_1h["high"].iloc[-3:].max())
             touched_resist = recent_high >= min(float(live["ema20"]), float(live["vwap"])) * 0.995
             rejecting_down = price < float(prev["low"]) and float(live["rsi"]) >= 36 and vol_r >= 1.25 and float(live["macd_hist"]) < float(prev["macd_hist"])
-            was_squeezed = df["bb_width"].iloc[-4:-1].min() <= (float(prev["bb_width_min30"]) * 1.15)
+            was_squeezed = df_1h["bb_width"].iloc[-4:-1].min() <= (float(prev["bb_width_min30"]) * 1.15)
             fresh_down = (price < float(live["donchian_low"])) and (float(prev["close"]) >= float(prev["donchian_low"]) * 0.985)
 
             s_setup = 0
@@ -525,18 +512,33 @@ def evaluate_main_trend(
                 tags.append("🎯 反彈確認轉空")
 
             if s_setup > 0:
+                # 計算真實 1H 結構止損；若止損超過 3.8% 直接放棄，避免像 DOGE 一樣把 SL 硬塞進壓力區中間
+                sl = max(float(df_1h["swing_high"].iloc[-1]) + 0.3 * atr, price + 1.6 * atr)
+                sl_pct = (sl - price) / price
+                if sl_pct > 0.038:
+                    return None
+                if sl_pct < 0.014:
+                    sl_pct = 0.014
+                    sl = price * (1 + sl_pct)
+
+                risk = sl - price
+                # 對比下方 7 日大支撐牆：若未達 1.3R 就先撞上前低支撐，直接放棄
+                support_floor = major_7d_low * 1.003
+                if (price - support_floor) < 1.3 * risk:
+                    return None
+
+                tp1 = max(price - 1.5 * risk, support_floor)
+                # TP2 最多看到略為跌破 7 日前低 1.5%，絕不畫無底洞目標
+                tp2 = max(price - 2.6 * risk, major_7d_low * 0.985)
+
                 s_vol = 18 if vol_r >= 1.8 else (13 if vol_r >= 1.25 else 7)
                 s_env = (8 if 36 <= float(live["rsi"]) <= 52 else 4) + 7
                 score = int(np.clip(s_trend + s_setup + s_vol + s_env, 0, 100))
                 if score >= MAIN_MIN_SCORE:
-                    sl = max(float(df["swing_high"].iloc[-1]) + 0.3 * atr, price + 1.8 * atr)
-                    sl_pct = float(np.clip((sl - price) / price, 0.015, 0.050))
-                    sl = price * (1 + sl_pct)
-                    risk = sl - price
                     candidates.append(build_main_dict(
-                        symbol, timeframe, "SHORT", score, tags,
-                        {"雙週期空頭": f"{s_trend}/30", "順風形態": f"{s_setup}/32", "量能確認": f"{s_vol}/18", "大盤/RSI": f"{s_env}/20"},
-                        price, sl, sl_pct, price - 1.5 * risk, price - 2.8 * risk, current_capital
+                        symbol, "1h", "SHORT", score, tags,
+                        {"4H+1H空頭": f"{s_trend}/30", "順風形態": f"{s_setup}/32", "量能確認": f"{s_vol}/18", "大盤/RSI": f"{s_env}/20"},
+                        price, sl, sl_pct, tp1, tp2, current_capital
                     ))
 
     if not candidates:
@@ -551,7 +553,9 @@ def build_main_dict(
 ) -> dict:
     tp1_pct = abs(tp1 - price) / price
     tp2_pct = abs(tp2 - price) / price
-    leverage = 5 if (sl_pct <= 0.022 and score >= 82) else (4 if sl_pct <= 0.032 else 3)
+    rr_tp1 = round(tp1_pct / sl_pct, 2)
+    rr_tp2 = round(tp2_pct / sl_pct, 2)
+    leverage = 5 if (sl_pct <= 0.022 and score >= 82) else (4 if sl_pct <= 0.030 else 3)
 
     target_risk_u = max(1.5, current_capital * MAIN_RISK_PCT)
     max_margin_u = max(15.0, current_capital * 0.30)
@@ -564,7 +568,7 @@ def build_main_dict(
         "symbol": symbol,
         "timeframe": timeframe,
         "side": side,
-        "matched_tfs": [timeframe],
+        "matched_tfs": ["4h順風", "1h進場"],
         "score": score,
         "tags": tags,
         "history_note": "",
@@ -583,14 +587,14 @@ def build_main_dict(
         "est_loss_sl": notional_usdt * sl_pct + est_fee,
         "est_profit_tp1": notional_usdt * tp1_pct - est_fee,
         "est_profit_tp2": notional_usdt * tp2_pct - est_fee,
-        "rr_tp1": 1.5,
-        "rr_tp2": 2.8,
+        "rr_tp1": rr_tp1,
+        "rr_tp2": rr_tp2,
         "breakdown": breakdown,
     }
 
 
 # ==========================================
-# 8. K 線圖表生成（支援系統一與系統二雙模式）
+# 8. K 線圖表生成
 # ==========================================
 def generate_chart_image(df: pd.DataFrame, setup: dict) -> io.BytesIO:
     sub = df.iloc[-60:].copy()
@@ -613,15 +617,14 @@ def generate_chart_image(df: pd.DataFrame, setup: dict) -> io.BytesIO:
     ]
 
     is_moon = setup["system"] == "MOONSHOT"
+    levels = [setup["tp2"], setup["tp1"], setup["entry"], setup["sl"]]
     if is_moon:
-        levels = [setup["tp2"], setup["tp1"], setup["entry"], setup["sl"]]
         level_colors = ["#e056fd", "#00e676", "#3498db", "#ff5252"]
         title_str = f"\n[MOONSHOT SNIPER] {setup['symbol']} | Score: {setup['score']}/100 | {setup['leverage']}x | TW {setup['signal_time_tw']}"
     else:
-        levels = [setup["tp2"], setup["tp1"], setup["entry"], setup["sl"]]
         level_colors = ["#00e676", "#2ecc71", "#3498db", "#ff5252"]
         side_label = "LONG" if setup["side"] == "LONG" else "SHORT"
-        title_str = f"\n[MAIN TREND] {setup['symbol']} [{side_label} | {'+'.join(setup['matched_tfs'])}] | Score: {setup['score']}/100 | TW {setup['signal_time_tw']}"
+        title_str = f"\n[MAIN TREND] {setup['symbol']} [{side_label} | 1H] | Score: {setup['score']}/100 | TW {setup['signal_time_tw']}"
 
     fig, axes = mpf.plot(
         sub, type="candle", style=style, volume=True, addplot=apds,
@@ -673,17 +676,16 @@ def send_discord_alert(setup: dict, df: pd.DataFrame, state: dict):
     tv_symbol = setup["symbol"].replace("/", "")
 
     if is_moon:
-        # 系統二：高R暴漲妖幣狙擊（紫金色獨立卡片）
         embed = {
             "title": f"🚀🚀 【系統二｜暴漲妖幣狙擊】{setup['symbol']} 異常起爆！",
             "description": (
                 f"🔥 **盤口異常特徵**：**{tag_line}**\n"
                 f"🕒 **起爆時間（台灣）**：`{setup['signal_time_tw']}`\n"
                 f"🎯 **妖幣爆發評分**：`{setup['score']} / 100 分` ｜ 🎰 **吃滿波段潛力**：**`+{setup['est_jackpot_u']:.0f} U` (`{setup['rr_max']}R`)**\n"
-                f"⚠️ **紀律提醒**：此單為高波動妖幣，務必使用 **逐倉 `{setup['leverage']}x`**、固定小額 **`{setup['margin_usdt']:.0f} U`** 博取十倍暴利！\n"
-                f"📊 [立即開啟 TradingView 搶單確認](https://www.tradingview.com/chart/?symbol=OKX:{tv_symbol}-PERP)"
+                f"⚠️ **紀律提醒**：務必使用 **逐倉 `{setup['leverage']}x`**、固定小額 **`{setup['margin_usdt']:.0f} U`** 博取高倍暴利！\n"
+                f"📊 [立即開啟 TradingView 確認](https://www.tradingview.com/chart/?symbol=OKX:{tv_symbol}-PERP)"
             ),
-            "color": 0x9B59B6,  # 尊爵紫，一眼區分暴漲系統
+            "color": 0x9B59B6,
             "fields": [
                 {
                     "name": "💲 現價 / 突破進場",
@@ -726,16 +728,14 @@ def send_discord_alert(setup: dict, df: pd.DataFrame, state: dict):
         }
         bot_name = "妖幣狙擊雷達【系統二：高R暴漲】"
     else:
-        # 系統一：主趨勢穩健單
         is_long = setup["side"] == "LONG"
         side_badge = "🟢 做多 LONG" if is_long else "🔴 做空 SHORT"
-        tfs_str = " + ".join(setup["matched_tfs"])
         embed = {
-            "title": f"🛡️ 【系統一｜主趨勢穩健】{side_badge} | {setup['symbol']} 【{tfs_str}】",
+            "title": f"🛡️ 【系統一｜主趨勢穩健】{side_badge} | {setup['symbol']} 【1H進場】",
             "description": (
                 f"🏷️ **結構特徵**：**{tag_line}**\n"
                 f"🕒 **出訊號時間（台灣）**：`{setup['signal_time_tw']}`\n"
-                f"🎯 **綜合評分**：`{setup['score']} / 100 分` ｜ ⚖️ **盈虧比**：TP1 `1:1.5` ／ TP2 `1:2.8`\n"
+                f"🎯 **綜合評分**：`{setup['score']} / 100 分` ｜ ⚖️ **實質盈虧比**：TP1 `1:{setup['rr_tp1']}` ／ TP2 `1:{setup['rr_tp2']}`（已校準7日支撐牆）\n"
                 f"📊 [點此開啟 TradingView 圖表確認](https://www.tradingview.com/chart/?symbol=OKX:{tv_symbol})"
             ),
             "color": 0x2ECC71 if is_long else 0x3498DB,
@@ -751,7 +751,7 @@ def send_discord_alert(setup: dict, df: pd.DataFrame, state: dict):
                     "inline": True,
                 },
                 {
-                    "name": f"🛑 止損價 (SL {setup['sl_pct']:.2f}%)",
+                    "name": f"🛑 結構止損 (SL {setup['sl_pct']:.2f}%)",
                     "value": f"`{format_price(setup['sl'])}`\n預計虧損: **`-{setup['est_loss_sl']:.2f} U`**",
                     "inline": True,
                 },
@@ -874,7 +874,7 @@ def send_daily_summary(state: dict, spot_tickers: dict, swap_tickers: dict):
             {"name": "🚀 系統二（暴漲妖幣）累計", "value": f"勝率 `{moon_wr}` ｜ 淨利 **`{smoon['net_pnl_u']:+.2f} U`**", "inline": True},
             {"name": "📋 剩餘未平倉追蹤明細", "value": detail, "inline": False},
         ],
-        "footer": {"text": "雙引擎量化雷達 v5 • 每日 23:50 自動結算"},
+        "footer": {"text": "雙引擎量化雷達 v5.1 • 每日 23:50 自動結算"},
     }
     try:
         requests.post(DISCORD_WEBHOOK_URL, json={"username": "雙引擎戰報總結", "embeds": [embed]}, timeout=10)
@@ -883,12 +883,11 @@ def send_daily_summary(state: dict, spot_tickers: dict, swap_tickers: dict):
 
 
 # ==========================================
-# 10. 雙系統訂單即時追蹤（含妖幣階梯止盈與吊燈追蹤）
+# 10. 雙系統訂單即時追蹤
 # ==========================================
 def check_all_active_orders(exchange, state: dict):
     now = time.time()
 
-    # --- 追蹤系統一（穩健主趨勢） ---
     for sym in list(state["active_main"].keys()):
         sig = state["active_main"][sym]
         if now - sig["created_at"] > MAIN_MAX_HOURS * 3600:
@@ -949,7 +948,6 @@ def check_all_active_orders(exchange, state: dict):
         except Exception as e:
             print(f"[主系統追蹤異常] {sym}: {e}")
 
-    # --- 追蹤系統二（暴漲妖幣四階梯止盈＋吊燈無限追蹤） ---
     for sym in list(state["active_moon"].keys()):
         sig = state["active_moon"][sym]
         if now - sig["created_at"] > MOON_MAX_HOURS * 3600:
@@ -965,7 +963,6 @@ def check_all_active_orders(exchange, state: dict):
 
             for c in candles:
                 _, _, h, l, _, _ = c
-                # 1. 檢查止損或吊燈追蹤止損
                 if l <= sig["sl"]:
                     realized = sig.get("realized_u", 0.0)
                     rem_ratio = sig.get("rem_ratio", 1.0)
@@ -978,7 +975,6 @@ def check_all_active_orders(exchange, state: dict):
                     done = True
                     break
 
-                # 2. TP1 (+15%)：平 30% 抽回本金並移動止損至保本
                 if not sig.get("tp1_hit") and h >= sig["tp1"]:
                     sig["tp1_hit"] = True
                     sig["sl"] = entry * 1.005
@@ -986,7 +982,6 @@ def check_all_active_orders(exchange, state: dict):
                     sig["realized_u"] = round(sig.get("realized_u", 0.0) + notional * 0.30 * 0.15, 2)
                     send_outcome_alert(sig, "TP1", sig["realized_u"], state)
 
-                # 3. TP2 (+35%)：再平 30% 鎖定大肉，止損上移至 +15%
                 if not sig.get("tp2_hit") and h >= sig["tp2"]:
                     sig["tp2_hit"] = True
                     sig["sl"] = max(sig["sl"], entry * 1.15)
@@ -994,14 +989,12 @@ def check_all_active_orders(exchange, state: dict):
                     sig["realized_u"] = round(sig.get("realized_u", 0.0) + notional * 0.30 * 0.35, 2)
                     send_outcome_alert(sig, "TP2", sig["realized_u"], state)
 
-                # 4. TP3 (+80%)：再平 20%，剩餘 20% 啟動高點回落 15% 吊燈追蹤吃超級大魚
                 if not sig.get("tp3_hit") and h >= sig["tp3"]:
                     sig["tp3_hit"] = True
                     sig["rem_ratio"] = 0.20
                     sig["realized_u"] = round(sig.get("realized_u", 0.0) + notional * 0.20 * 0.80, 2)
                     send_outcome_alert(sig, "TP3", sig["realized_u"], state)
 
-                # 5. 已過 TP2 後動態上移吊燈止損（最高點回落 12% 自動鎖利）
                 if sig.get("tp2_hit"):
                     peak = max(sig.get("peak_price", entry), h)
                     sig["peak_price"] = peak
@@ -1036,12 +1029,8 @@ def run_scan():
     current_capital = INITIAL_CAPITAL + state["stats_main"].get("net_pnl_u", 0.0)
     now = time.time()
 
-    # 1. 優先檢查雙系統既有追蹤訂單的 TP/SL 狀態
     check_all_active_orders(exchange, state)
 
-    # ---------------------------------------------------------
-    # 2. 【系統一】掃描前 30 大純加密貨幣主趨勢（1H / 4H）
-    # ---------------------------------------------------------
     spot_tickers = exchange.fetch_tickers()
     active_spot = []
     for sym, t in spot_tickers.items():
@@ -1057,7 +1046,6 @@ def run_scan():
     active_spot.sort(key=lambda x: x[1], reverse=True)
     main_symbols = [x[0] for x in active_spot[:30]]
 
-    # 取得 BTC 4H 大盤方向
     try:
         ohlcv_btc = exchange.fetch_ohlcv("BTC/USDT", "4h", limit=100)
         df_btc = compute_indicators(pd.DataFrame(ohlcv_btc, columns=["ts", "open", "high", "low", "close", "volume"]))
@@ -1078,26 +1066,18 @@ def run_scan():
             if c4_trend == 0:
                 continue
 
-            tf_hits = []
-            for tf in MAIN_TIMEFRAMES:
-                df_tf = df_4h if tf == "4h" else compute_indicators(pd.DataFrame(exchange.fetch_ohlcv(sym, tf, limit=120), columns=["ts", "open", "high", "low", "close", "volume"]))
-                setup = evaluate_main_trend(sym, tf, df_tf, c4_trend, btc_4h_trend, current_capital)
-                if setup:
-                    tf_hits.append((setup, df_tf))
+            ohlcv_1h = exchange.fetch_ohlcv(sym, "1h", limit=120)
+            if len(ohlcv_1h) < 60:
+                continue
+            df_1h = compute_indicators(pd.DataFrame(ohlcv_1h, columns=["ts", "open", "high", "low", "close", "volume"]))
 
-            if tf_hits:
-                tf_hits.sort(key=lambda x: x[0]["score"], reverse=True)
-                best_s, best_df = tf_hits[0]
-                if len(tf_hits) >= 2 and tf_hits[0][0]["side"] == tf_hits[1][0]["side"]:
-                    best_s["matched_tfs"] = ["4h", "1h"]
-                    best_s["score"] = min(100, best_s["score"] + 6)
-                    best_s["tags"].insert(0, "⚡ 4H+1H 雙週期共振 (+6分)")
-                main_candidates.append((best_s, best_df))
-
+            best_s = evaluate_main_trend(sym, df_1h, df_4h, c4_trend, btc_4h_trend, current_capital)
+            if best_s:
+                main_candidates.append((best_s, df_1h))
                 hist_key = f"MAIN_{sym}"
                 mins_ago = (now - coin_history[hist_key]["last_ts"]) / 60 if hist_key in coin_history else 9999
                 if best_s["score"] >= MAIN_MIN_SCORE and sym not in state["active_main"] and mins_ago >= MAIN_COOLDOWN_MIN:
-                    send_discord_alert(best_s, best_df, state)
+                    send_discord_alert(best_s, df_1h, state)
                     state["daily_stats"]["main_sent"] += 1
                     coin_history[hist_key] = {"last_ts": now}
                     state["active_main"][sym] = {
@@ -1109,9 +1089,6 @@ def run_scan():
         except Exception:
             continue
 
-    # ---------------------------------------------------------
-    # 3. 【系統二】掃描 OKX 永續合約中小型暴漲妖幣（尋找高R起爆點）
-    # ---------------------------------------------------------
     swap_tickers = exchange.fetch_tickers(params={"instType": "SWAP"})
     moon_pool = []
     for sym, t in swap_tickers.items():
@@ -1122,13 +1099,11 @@ def run_scan():
             continue
         info = t.get("info", {})
         inst_id = info.get("instId", f"{base}-USDT-SWAP")
-        # 24H 成交額落在 150 萬 U ~ 1 億 U 之間的中小型高彈性合約
         vol_ccy = float(info.get("volCcy24h") or 0) * float(t.get("last") or 0)
         pct_24h = float(t.get("percentage") or 0)
         if 1_500_000 <= vol_ccy <= 120_000_000 and pct_24h > 3.0:
             moon_pool.append((sym, inst_id, pct_24h))
 
-    # 優先掃描 24H 漲幅已開始異動的前 35 檔合約
     moon_pool.sort(key=lambda x: x[2], reverse=True)
     moon_candidates = []
 
