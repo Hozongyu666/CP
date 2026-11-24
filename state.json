@@ -15,6 +15,9 @@
     },
     "MOON_BABY/USDT:USDT": {
       "last_ts": 1795495541.1589735
+    },
+    "MOON_PROS/USDT:USDT": {
+      "last_ts": 1795519243.4849977
     }
   },
   "active_main": {
@@ -56,7 +59,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795488346.7410452,
-      "last_checked_ms": 1795518900000
+      "last_checked_ms": 1795519200000
     },
     "PUMP/USDT": {
       "system": "MAIN",
@@ -96,7 +99,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795488346.7410452,
-      "last_checked_ms": 1795518900000
+      "last_checked_ms": 1795519200000
     },
     "ZEC/USDT": {
       "system": "MAIN",
@@ -136,7 +139,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795490744.7936592,
-      "last_checked_ms": 1795518900000
+      "last_checked_ms": 1795519200000
     }
   },
   "active_moon": {
@@ -185,7 +188,54 @@
       "realized_u": 0.0,
       "peak_price": 0.005611,
       "created_at": 1795487140.6828053,
-      "last_checked_ms": 1795518900000
+      "last_checked_ms": 1795519200000
+    },
+    "PROS/USDT:USDT": {
+      "system": "MOONSHOT",
+      "symbol": "PROS/USDT:USDT",
+      "inst_id": "PROS-USDT-SWAP",
+      "timeframe": "1h暴漲起爆",
+      "side": "LONG",
+      "matched_tfs": [
+        "1h"
+      ],
+      "score": 76,
+      "tags": [
+        "🚀 強勢箱體突破",
+        "💣 核爆級巨量 (31.1x)",
+        "🐋 主力狂開倉 OI +11.9%"
+      ],
+      "history_note": "",
+      "signal_time_tw": "2026-11-24 19:20:52",
+      "current_price": 0.679,
+      "entry": 0.679,
+      "sl": 0.628075,
+      "sl_pct": 7.5,
+      "tp1": 0.78085,
+      "tp2": 0.9166500000000001,
+      "tp3": 1.2222000000000002,
+      "leverage": 8,
+      "margin_usdt": 15.0,
+      "notional_usdt": 120.0,
+      "est_loss_sl": 9.12,
+      "est_profit_tp1": 17.88,
+      "est_profit_tp2": 41.88,
+      "est_jackpot_u": 65.88,
+      "rr_max": 4.4,
+      "breakdown": {
+        "吸籌壓縮": "20/30",
+        "量能核爆": "25/25 (31.1x)",
+        "異常增倉": "25/25 (1H:+7.3% / 3H:+11.9%)",
+        "軋空燃料": "6/20 (費率:+0.0050%)"
+      },
+      "tp1_hit": false,
+      "tp2_hit": false,
+      "tp3_hit": false,
+      "rem_ratio": 1.0,
+      "realized_u": 0.0,
+      "peak_price": 0.679,
+      "created_at": 1795519243.4849977,
+      "last_checked_ms": 1795519243484
     }
   },
   "last_heartbeat": 0,
@@ -203,7 +253,7 @@
   "daily_stats": {
     "date": "2026-11-24",
     "main_sent": 3,
-    "moon_sent": 2,
+    "moon_sent": 3,
     "wins": 0,
     "losses": 1,
     "net_pnl_u": -7.77
