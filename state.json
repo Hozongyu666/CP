@@ -24,6 +24,9 @@
     },
     "MAIN_ETH/USDT": {
       "last_ts": 1795592452.0848784
+    },
+    "MOON_BLUR/USDT:USDT": {
+      "last_ts": 1795602952.782966
     }
   },
   "active_main": {
@@ -66,7 +69,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795578644.1202803,
-      "last_checked_ms": 1795602600000
+      "last_checked_ms": 1795602900000
     },
     "BTC/USDT": {
       "system": "MAIN",
@@ -107,7 +110,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795592452.0848784,
-      "last_checked_ms": 1795602600000
+      "last_checked_ms": 1795602900000
     },
     "ETH/USDT": {
       "system": "MAIN",
@@ -148,7 +151,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795592452.0848784,
-      "last_checked_ms": 1795602600000
+      "last_checked_ms": 1795602900000
     }
   },
   "active_moon": {
@@ -197,7 +200,7 @@
       "realized_u": 5.4,
       "peak_price": 0.15916,
       "created_at": 1795552842.7663538,
-      "last_checked_ms": 1795602600000
+      "last_checked_ms": 1795602900000
     },
     "SLX/USDT:USDT": {
       "system": "MOONSHOT",
@@ -245,7 +248,7 @@
       "realized_u": 0.0,
       "peak_price": 0.03214,
       "created_at": 1795580152.1572008,
-      "last_checked_ms": 1795602600000
+      "last_checked_ms": 1795602900000
     },
     "MOODENG/USDT:USDT": {
       "system": "MOONSHOT",
@@ -292,7 +295,55 @@
       "realized_u": 5.4,
       "peak_price": 0.02705,
       "created_at": 1795584345.8897014,
-      "last_checked_ms": 1795602600000
+      "last_checked_ms": 1795602900000
+    },
+    "BLUR/USDT:USDT": {
+      "system": "MOONSHOT",
+      "symbol": "BLUR/USDT:USDT",
+      "inst_id": "BLUR-USDT-SWAP",
+      "timeframe": "1h暴漲起爆",
+      "side": "LONG",
+      "matched_tfs": [
+        "1h"
+      ],
+      "score": 72,
+      "tags": [
+        "🚀 強勢箱體突破",
+        "🔥 異常爆量 (3.7x)",
+        "🐳 持倉暴增 OI +5.8%",
+        "🔥 負費率空軍燃料 (-0.041%)"
+      ],
+      "history_note": "",
+      "signal_time_tw": "2026-11-25 18:36:00",
+      "current_price": 0.009521,
+      "entry": 0.009521,
+      "sl": 0.008806925,
+      "sl_pct": 7.5,
+      "tp1": 0.01094915,
+      "tp2": 0.012853350000000001,
+      "tp3": 0.0171378,
+      "leverage": 8,
+      "margin_usdt": 15.0,
+      "notional_usdt": 120.0,
+      "est_loss_sl": 9.12,
+      "est_profit_tp1": 17.88,
+      "est_profit_tp2": 41.88,
+      "est_jackpot_u": 65.88,
+      "rr_max": 4.4,
+      "breakdown": {
+        "吸籌壓縮": "20/30",
+        "量能核爆": "20/25 (3.7x)",
+        "異常增倉": "18/25 (1H:+5.8% / 3H:+5.7%)",
+        "軋空燃料": "14/20 (費率:-0.0406%)"
+      },
+      "tp1_hit": false,
+      "tp2_hit": false,
+      "tp3_hit": false,
+      "rem_ratio": 1.0,
+      "realized_u": 0.0,
+      "peak_price": 0.009521,
+      "created_at": 1795602952.782966,
+      "last_checked_ms": 1795602952782
     }
   },
   "last_heartbeat": 0,
@@ -310,7 +361,7 @@
   "daily_stats": {
     "date": "2026-11-25",
     "main_sent": 3,
-    "moon_sent": 5,
+    "moon_sent": 6,
     "wins": 1,
     "losses": 1,
     "net_pnl_u": 22.22
