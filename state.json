@@ -83,7 +83,7 @@
       "realized_u": 0.0,
       "peak_price": 0.03214,
       "created_at": 1795580152.1572008,
-      "last_checked_ms": 1795642500000
+      "last_checked_ms": 1795642800000
     },
     "BLUR/USDT:USDT": {
       "system": "MOONSHOT",
@@ -131,7 +131,7 @@
       "realized_u": 5.4,
       "peak_price": 0.009521,
       "created_at": 1795602952.782966,
-      "last_checked_ms": 1795642500000
+      "last_checked_ms": 1795642800000
     },
     "SSV/USDT:USDT": {
       "system": "MOONSHOT",
@@ -179,7 +179,7 @@
       "realized_u": 5.4,
       "peak_price": 1.875,
       "created_at": 1795610748.8419805,
-      "last_checked_ms": 1795642500000
+      "last_checked_ms": 1795642800000
     }
   },
   "last_heartbeat": 0,
