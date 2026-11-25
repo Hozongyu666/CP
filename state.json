@@ -78,48 +78,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795592452.0848784,
-      "last_checked_ms": 1795630500000
-    },
-    "ETH/USDT": {
-      "system": "MAIN",
-      "symbol": "ETH/USDT",
-      "timeframe": "1h",
-      "side": "SHORT",
-      "matched_tfs": [
-        "4h順風",
-        "1h進場"
-      ],
-      "score": 82,
-      "tags": [
-        "📉 順勢跌破支撐"
-      ],
-      "history_note": "",
-      "signal_time_tw": "2026-11-25 15:40:56",
-      "current_price": 1641.39,
-      "entry": 1641.39,
-      "sl": 1693.8812877288856,
-      "sl_pct": 3.197977794971669,
-      "tp1": 1562.653068406672,
-      "tp1_pct": 4.796966692457497,
-      "tp2": 1513.5411499999998,
-      "tp2_pct": 7.789059882173055,
-      "leverage": 3,
-      "margin_usdt": 20.8,
-      "notional_usdt": 62.400000000000006,
-      "est_loss_sl": 2.0579381440623212,
-      "est_profit_tp1": 2.9309072160934786,
-      "est_profit_tp2": 4.797973366475986,
-      "rr_tp1": 1.5,
-      "rr_tp2": 2.44,
-      "breakdown": {
-        "4H+1H空頭": "30/30",
-        "順風形態": "28/32",
-        "量能確認": "13/18",
-        "大盤/RSI": "11/20"
-      },
-      "tp1_hit": false,
-      "created_at": 1795592452.0848784,
-      "last_checked_ms": 1795630500000
+      "last_checked_ms": 1795630800000
     }
   },
   "active_moon": {
@@ -169,7 +128,7 @@
       "realized_u": 0.0,
       "peak_price": 0.03214,
       "created_at": 1795580152.1572008,
-      "last_checked_ms": 1795630500000
+      "last_checked_ms": 1795630800000
     },
     "BLUR/USDT:USDT": {
       "system": "MOONSHOT",
@@ -217,7 +176,7 @@
       "realized_u": 5.4,
       "peak_price": 0.009521,
       "created_at": 1795602952.782966,
-      "last_checked_ms": 1795630500000
+      "last_checked_ms": 1795630800000
     },
     "SSV/USDT:USDT": {
       "system": "MOONSHOT",
@@ -265,7 +224,7 @@
       "realized_u": 0.0,
       "peak_price": 1.875,
       "created_at": 1795610748.8419805,
-      "last_checked_ms": 1795630500000
+      "last_checked_ms": 1795630800000
     },
     "AT/USDT:USDT": {
       "system": "MOONSHOT",
@@ -312,15 +271,15 @@
       "realized_u": 0.0,
       "peak_price": 0.06091,
       "created_at": 1795628140.6119716,
-      "last_checked_ms": 1795630500000
+      "last_checked_ms": 1795630800000
     }
   },
   "last_heartbeat": 0,
   "last_daily_report_date": "2026-11-25",
   "stats_main": {
     "wins": 1,
-    "losses": 0,
-    "net_pnl_u": 1.75
+    "losses": 1,
+    "net_pnl_u": -0.31
   },
   "stats_moon": {
     "wins": 3,
@@ -332,7 +291,7 @@
     "main_sent": 0,
     "moon_sent": 1,
     "wins": 1,
-    "losses": 1,
-    "net_pnl_u": -7.37
+    "losses": 2,
+    "net_pnl_u": -9.43
   }
 }
