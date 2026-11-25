@@ -66,7 +66,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795578644.1202803,
-      "last_checked_ms": 1795602300000
+      "last_checked_ms": 1795602600000
     },
     "BTC/USDT": {
       "system": "MAIN",
@@ -107,7 +107,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795592452.0848784,
-      "last_checked_ms": 1795602300000
+      "last_checked_ms": 1795602600000
     },
     "ETH/USDT": {
       "system": "MAIN",
@@ -148,7 +148,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795592452.0848784,
-      "last_checked_ms": 1795602300000
+      "last_checked_ms": 1795602600000
     }
   },
   "active_moon": {
@@ -197,7 +197,7 @@
       "realized_u": 5.4,
       "peak_price": 0.15916,
       "created_at": 1795552842.7663538,
-      "last_checked_ms": 1795602300000
+      "last_checked_ms": 1795602600000
     },
     "SLX/USDT:USDT": {
       "system": "MOONSHOT",
@@ -245,7 +245,7 @@
       "realized_u": 0.0,
       "peak_price": 0.03214,
       "created_at": 1795580152.1572008,
-      "last_checked_ms": 1795602300000
+      "last_checked_ms": 1795602600000
     },
     "MOODENG/USDT:USDT": {
       "system": "MOONSHOT",
@@ -266,7 +266,7 @@
       "signal_time_tw": "2026-11-25 13:25:58",
       "current_price": 0.02705,
       "entry": 0.02705,
-      "sl": 0.025021250000000002,
+      "sl": 0.027185249999999998,
       "sl_pct": 7.5,
       "tp1": 0.0311075,
       "tp2": 0.0365175,
@@ -285,14 +285,14 @@
         "異常增倉": "25/25 (1H:+20.4% / 3H:+24.6%)",
         "軋空燃料": "6/20 (費率:+0.0050%)"
       },
-      "tp1_hit": false,
+      "tp1_hit": true,
       "tp2_hit": false,
       "tp3_hit": false,
-      "rem_ratio": 1.0,
-      "realized_u": 0.0,
+      "rem_ratio": 0.7,
+      "realized_u": 5.4,
       "peak_price": 0.02705,
       "created_at": 1795584345.8897014,
-      "last_checked_ms": 1795602300000
+      "last_checked_ms": 1795602600000
     }
   },
   "last_heartbeat": 0,
