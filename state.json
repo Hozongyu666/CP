@@ -75,7 +75,7 @@
       },
       "tp1_hit": true,
       "created_at": 1795578644.1202803,
-      "last_checked_ms": 1795622100000
+      "last_checked_ms": 1795622400000
     },
     "BTC/USDT": {
       "system": "MAIN",
@@ -116,7 +116,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795592452.0848784,
-      "last_checked_ms": 1795622100000
+      "last_checked_ms": 1795622400000
     },
     "ETH/USDT": {
       "system": "MAIN",
@@ -157,7 +157,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795592452.0848784,
-      "last_checked_ms": 1795622100000
+      "last_checked_ms": 1795622400000
     }
   },
   "active_moon": {
@@ -207,7 +207,7 @@
       "realized_u": 0.0,
       "peak_price": 0.03214,
       "created_at": 1795580152.1572008,
-      "last_checked_ms": 1795622100000
+      "last_checked_ms": 1795622400000
     },
     "BLUR/USDT:USDT": {
       "system": "MOONSHOT",
@@ -255,7 +255,7 @@
       "realized_u": 0.0,
       "peak_price": 0.009521,
       "created_at": 1795602952.782966,
-      "last_checked_ms": 1795622100000
+      "last_checked_ms": 1795622400000
     },
     "SSV/USDT:USDT": {
       "system": "MOONSHOT",
@@ -303,7 +303,7 @@
       "realized_u": 0.0,
       "peak_price": 1.875,
       "created_at": 1795610748.8419805,
-      "last_checked_ms": 1795622100000
+      "last_checked_ms": 1795622400000
     },
     "UVXY/USDT:USDT": {
       "system": "MOONSHOT",
@@ -351,7 +351,7 @@
       "realized_u": 0.0,
       "peak_price": 29.5,
       "created_at": 1795618251.0549653,
-      "last_checked_ms": 1795622100000
+      "last_checked_ms": 1795622400000
     }
   },
   "last_heartbeat": 0,
@@ -367,11 +367,11 @@
     "net_pnl_u": 33.62
   },
   "daily_stats": {
-    "date": "2026-11-25",
-    "main_sent": 3,
-    "moon_sent": 8,
-    "wins": 3,
-    "losses": 1,
-    "net_pnl_u": 33.62
+    "date": "2026-11-26",
+    "main_sent": 0,
+    "moon_sent": 0,
+    "wins": 0,
+    "losses": 0,
+    "net_pnl_u": 0.0
   }
 }
