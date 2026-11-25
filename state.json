@@ -38,49 +38,7 @@
       "last_ts": 1795628140.6119716
     }
   },
-  "active_main": {
-    "BTC/USDT": {
-      "system": "MAIN",
-      "symbol": "BTC/USDT",
-      "timeframe": "1h",
-      "side": "SHORT",
-      "matched_tfs": [
-        "4h順風",
-        "1h進場"
-      ],
-      "score": 86,
-      "tags": [
-        "💥 壓縮放量跌破"
-      ],
-      "history_note": "",
-      "signal_time_tw": "2026-11-25 15:40:55",
-      "current_price": 58814.9,
-      "entry": 58814.9,
-      "sl": 60263.55921763315,
-      "sl_pct": 2.463082004106352,
-      "tp1": 56641.91117355028,
-      "tp1_pct": 3.694623006159528,
-      "tp2": 55048.38603415382,
-      "tp2_pct": 6.404013210676521,
-      "leverage": 4,
-      "margin_usdt": 20.3,
-      "notional_usdt": 81.2,
-      "est_loss_sl": 2.081222587334358,
-      "est_profit_tp1": 2.918833881001537,
-      "est_profit_tp2": 5.118858727069335,
-      "rr_tp1": 1.5,
-      "rr_tp2": 2.6,
-      "breakdown": {
-        "4H+1H空頭": "30/30",
-        "順風形態": "32/32",
-        "量能確認": "13/18",
-        "大盤/RSI": "11/20"
-      },
-      "tp1_hit": false,
-      "created_at": 1795592452.0848784,
-      "last_checked_ms": 1795634100000
-    }
-  },
+  "active_main": {},
   "active_moon": {
     "SLX/USDT:USDT": {
       "system": "MOONSHOT",
@@ -128,7 +86,7 @@
       "realized_u": 0.0,
       "peak_price": 0.03214,
       "created_at": 1795580152.1572008,
-      "last_checked_ms": 1795634100000
+      "last_checked_ms": 1795634400000
     },
     "BLUR/USDT:USDT": {
       "system": "MOONSHOT",
@@ -176,7 +134,7 @@
       "realized_u": 5.4,
       "peak_price": 0.009521,
       "created_at": 1795602952.782966,
-      "last_checked_ms": 1795634100000
+      "last_checked_ms": 1795634400000
     },
     "SSV/USDT:USDT": {
       "system": "MOONSHOT",
@@ -224,15 +182,15 @@
       "realized_u": 5.4,
       "peak_price": 1.875,
       "created_at": 1795610748.8419805,
-      "last_checked_ms": 1795634100000
+      "last_checked_ms": 1795634400000
     }
   },
   "last_heartbeat": 0,
   "last_daily_report_date": "2026-11-25",
   "stats_main": {
     "wins": 1,
-    "losses": 1,
-    "net_pnl_u": -0.31
+    "losses": 2,
+    "net_pnl_u": -2.39
   },
   "stats_moon": {
     "wins": 3,
@@ -244,7 +202,7 @@
     "main_sent": 0,
     "moon_sent": 1,
     "wins": 1,
-    "losses": 3,
-    "net_pnl_u": -18.55
+    "losses": 4,
+    "net_pnl_u": -20.63
   }
 }
