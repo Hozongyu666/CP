@@ -9,9 +9,54 @@
     },
     "MOON_IRYS/USDT:USDT": {
       "last_ts": 1795569652.3550408
+    },
+    "MAIN_OKB/USDT": {
+      "last_ts": 1795578644.1202803
     }
   },
-  "active_main": {},
+  "active_main": {
+    "OKB/USDT": {
+      "system": "MAIN",
+      "symbol": "OKB/USDT",
+      "timeframe": "1h",
+      "side": "SHORT",
+      "matched_tfs": [
+        "4h順風",
+        "1h進場"
+      ],
+      "score": 76,
+      "tags": [
+        "📉 順勢跌破支撐"
+      ],
+      "history_note": "",
+      "signal_time_tw": "2026-11-25 11:50:50",
+      "current_price": 80.16,
+      "entry": 80.16,
+      "sl": 81.94935134038123,
+      "sl_pct": 2.2322247260244894,
+      "tp1": 77.47597298942816,
+      "tp1_pct": 3.348337089036725,
+      "tp2": 75.5076865150088,
+      "tp2_pct": 5.803784287663669,
+      "leverage": 4,
+      "margin_usdt": 22.4,
+      "notional_usdt": 89.6,
+      "est_loss_sl": 2.0896733545179424,
+      "est_profit_tp1": 2.9105100317769055,
+      "est_profit_tp2": 5.1105907217466475,
+      "rr_tp1": 1.5,
+      "rr_tp2": 2.6,
+      "breakdown": {
+        "4H+1H空頭": "30/30",
+        "順風形態": "28/32",
+        "量能確認": "7/18",
+        "大盤/RSI": "11/20"
+      },
+      "tp1_hit": false,
+      "created_at": 1795578644.1202803,
+      "last_checked_ms": 1795578644120
+    }
+  },
   "active_moon": {
     "OPG/USDT:USDT": {
       "system": "MOONSHOT",
@@ -58,7 +103,7 @@
       "realized_u": 0.0,
       "peak_price": 0.15916,
       "created_at": 1795552842.7663538,
-      "last_checked_ms": 1795578300000
+      "last_checked_ms": 1795578600000
     },
     "BIGTIME/USDT:USDT": {
       "system": "MOONSHOT",
@@ -106,7 +151,7 @@
       "realized_u": 0.0,
       "peak_price": 0.004512,
       "created_at": 1795568152.2455537,
-      "last_checked_ms": 1795578300000
+      "last_checked_ms": 1795578600000
     },
     "IRYS/USDT:USDT": {
       "system": "MOONSHOT",
@@ -154,7 +199,7 @@
       "realized_u": 0.0,
       "peak_price": 0.01755,
       "created_at": 1795569652.3550408,
-      "last_checked_ms": 1795578300000
+      "last_checked_ms": 1795578600000
     }
   },
   "last_heartbeat": 0,
@@ -171,7 +216,7 @@
   },
   "daily_stats": {
     "date": "2026-11-25",
-    "main_sent": 0,
+    "main_sent": 1,
     "moon_sent": 3,
     "wins": 0,
     "losses": 0,
