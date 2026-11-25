@@ -54,7 +54,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795578644.1202803,
-      "last_checked_ms": 1795579500000
+      "last_checked_ms": 1795579800000
     }
   },
   "active_moon": {
@@ -103,7 +103,7 @@
       "realized_u": 0.0,
       "peak_price": 0.15916,
       "created_at": 1795552842.7663538,
-      "last_checked_ms": 1795579500000
+      "last_checked_ms": 1795579800000
     },
     "BIGTIME/USDT:USDT": {
       "system": "MOONSHOT",
@@ -125,7 +125,7 @@
       "signal_time_tw": "2026-11-25 08:55:59",
       "current_price": 0.004512,
       "entry": 0.004512,
-      "sl": 0.0041736,
+      "sl": 0.00453456,
       "sl_pct": 7.5,
       "tp1": 0.0051888,
       "tp2": 0.006091200000000001,
@@ -144,14 +144,14 @@
         "異常增倉": "25/25 (1H:+28.3% / 3H:+26.9%)",
         "軋空燃料": "20/20 (費率:-0.2210%)"
       },
-      "tp1_hit": false,
+      "tp1_hit": true,
       "tp2_hit": false,
       "tp3_hit": false,
-      "rem_ratio": 1.0,
-      "realized_u": 0.0,
+      "rem_ratio": 0.7,
+      "realized_u": 5.4,
       "peak_price": 0.004512,
       "created_at": 1795568152.2455537,
-      "last_checked_ms": 1795579500000
+      "last_checked_ms": 1795579800000
     },
     "IRYS/USDT:USDT": {
       "system": "MOONSHOT",
@@ -199,7 +199,7 @@
       "realized_u": 0.0,
       "peak_price": 0.01755,
       "created_at": 1795569652.3550408,
-      "last_checked_ms": 1795579500000
+      "last_checked_ms": 1795579800000
     }
   },
   "last_heartbeat": 0,
