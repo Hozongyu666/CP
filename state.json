@@ -15,6 +15,9 @@
     },
     "MOON_SLX/USDT:USDT": {
       "last_ts": 1795580152.1572008
+    },
+    "MOON_MOODENG/USDT:USDT": {
+      "last_ts": 1795584345.8897014
     }
   },
   "active_main": {
@@ -57,7 +60,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795578644.1202803,
-      "last_checked_ms": 1795584000000
+      "last_checked_ms": 1795584300000
     }
   },
   "active_moon": {
@@ -106,7 +109,7 @@
       "realized_u": 0.0,
       "peak_price": 0.15916,
       "created_at": 1795552842.7663538,
-      "last_checked_ms": 1795584000000
+      "last_checked_ms": 1795584300000
     },
     "SLX/USDT:USDT": {
       "system": "MOONSHOT",
@@ -154,7 +157,54 @@
       "realized_u": 0.0,
       "peak_price": 0.03214,
       "created_at": 1795580152.1572008,
-      "last_checked_ms": 1795584000000
+      "last_checked_ms": 1795584300000
+    },
+    "MOODENG/USDT:USDT": {
+      "system": "MOONSHOT",
+      "symbol": "MOODENG/USDT:USDT",
+      "inst_id": "MOODENG-USDT-SWAP",
+      "timeframe": "1h暴漲起爆",
+      "side": "LONG",
+      "matched_tfs": [
+        "1h"
+      ],
+      "score": 86,
+      "tags": [
+        "🌀 底部極致吸籌壓縮",
+        "💣 核爆級巨量 (17.2x)",
+        "🐋 主力狂開倉 OI +24.6%"
+      ],
+      "history_note": "",
+      "signal_time_tw": "2026-11-25 13:25:58",
+      "current_price": 0.02705,
+      "entry": 0.02705,
+      "sl": 0.025021250000000002,
+      "sl_pct": 7.5,
+      "tp1": 0.0311075,
+      "tp2": 0.0365175,
+      "tp3": 0.048690000000000004,
+      "leverage": 8,
+      "margin_usdt": 15.0,
+      "notional_usdt": 120.0,
+      "est_loss_sl": 9.12,
+      "est_profit_tp1": 17.88,
+      "est_profit_tp2": 41.88,
+      "est_jackpot_u": 65.88,
+      "rr_max": 4.4,
+      "breakdown": {
+        "吸籌壓縮": "30/30",
+        "量能核爆": "25/25 (17.2x)",
+        "異常增倉": "25/25 (1H:+20.4% / 3H:+24.6%)",
+        "軋空燃料": "6/20 (費率:+0.0050%)"
+      },
+      "tp1_hit": false,
+      "tp2_hit": false,
+      "tp3_hit": false,
+      "rem_ratio": 1.0,
+      "realized_u": 0.0,
+      "peak_price": 0.02705,
+      "created_at": 1795584345.8897014,
+      "last_checked_ms": 1795584345889
     }
   },
   "last_heartbeat": 0,
@@ -172,7 +222,7 @@
   "daily_stats": {
     "date": "2026-11-25",
     "main_sent": 1,
-    "moon_sent": 4,
+    "moon_sent": 5,
     "wins": 1,
     "losses": 1,
     "net_pnl_u": 22.22
