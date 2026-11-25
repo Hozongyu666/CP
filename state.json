@@ -60,7 +60,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795578644.1202803,
-      "last_checked_ms": 1795584900000
+      "last_checked_ms": 1795585200000
     }
   },
   "active_moon": {
@@ -109,7 +109,7 @@
       "realized_u": 0.0,
       "peak_price": 0.15916,
       "created_at": 1795552842.7663538,
-      "last_checked_ms": 1795584900000
+      "last_checked_ms": 1795585200000
     },
     "SLX/USDT:USDT": {
       "system": "MOONSHOT",
@@ -157,7 +157,7 @@
       "realized_u": 0.0,
       "peak_price": 0.03214,
       "created_at": 1795580152.1572008,
-      "last_checked_ms": 1795584900000
+      "last_checked_ms": 1795585200000
     },
     "MOODENG/USDT:USDT": {
       "system": "MOONSHOT",
@@ -204,7 +204,7 @@
       "realized_u": 0.0,
       "peak_price": 0.02705,
       "created_at": 1795584345.8897014,
-      "last_checked_ms": 1795584900000
+      "last_checked_ms": 1795585200000
     }
   },
   "last_heartbeat": 0,
