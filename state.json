@@ -6,6 +6,9 @@
     },
     "MOON_BIGTIME/USDT:USDT": {
       "last_ts": 1795568152.2455537
+    },
+    "MOON_IRYS/USDT:USDT": {
+      "last_ts": 1795569652.3550408
     }
   },
   "active_main": {},
@@ -55,7 +58,7 @@
       "realized_u": 0.0,
       "peak_price": 0.15916,
       "created_at": 1795552842.7663538,
-      "last_checked_ms": 1795569300000
+      "last_checked_ms": 1795569600000
     },
     "BIGTIME/USDT:USDT": {
       "system": "MOONSHOT",
@@ -103,7 +106,55 @@
       "realized_u": 0.0,
       "peak_price": 0.004512,
       "created_at": 1795568152.2455537,
-      "last_checked_ms": 1795569300000
+      "last_checked_ms": 1795569600000
+    },
+    "IRYS/USDT:USDT": {
+      "system": "MOONSHOT",
+      "symbol": "IRYS/USDT:USDT",
+      "inst_id": "IRYS-USDT-SWAP",
+      "timeframe": "1h暴漲起爆",
+      "side": "LONG",
+      "matched_tfs": [
+        "1h"
+      ],
+      "score": 89,
+      "tags": [
+        "🌀 底部極致吸籌壓縮",
+        "📈 放量啟動 (2.9x)",
+        "🐋 主力狂開倉 OI +13.9%",
+        "⚡ 極端負費率軋空 (-0.133%)"
+      ],
+      "history_note": "",
+      "signal_time_tw": "2026-11-25 09:21:00",
+      "current_price": 0.01755,
+      "entry": 0.01755,
+      "sl": 0.016536796389073922,
+      "sl_pct": 5.77323994829674,
+      "tp1": 0.0201825,
+      "tp2": 0.023692500000000002,
+      "tp3": 0.03159,
+      "leverage": 8,
+      "margin_usdt": 15.0,
+      "notional_usdt": 120.0,
+      "est_loss_sl": 7.047887937956088,
+      "est_profit_tp1": 17.88,
+      "est_profit_tp2": 41.88,
+      "est_jackpot_u": 65.88,
+      "rr_max": 4.4,
+      "breakdown": {
+        "吸籌壓縮": "30/30",
+        "量能核爆": "14/25 (2.9x)",
+        "異常增倉": "25/25 (1H:+7.4% / 3H:+13.9%)",
+        "軋空燃料": "20/20 (費率:-0.1332%)"
+      },
+      "tp1_hit": false,
+      "tp2_hit": false,
+      "tp3_hit": false,
+      "rem_ratio": 1.0,
+      "realized_u": 0.0,
+      "peak_price": 0.01755,
+      "created_at": 1795569652.3550408,
+      "last_checked_ms": 1795569652355
     }
   },
   "last_heartbeat": 0,
@@ -121,7 +172,7 @@
   "daily_stats": {
     "date": "2026-11-25",
     "main_sent": 0,
-    "moon_sent": 2,
+    "moon_sent": 3,
     "wins": 0,
     "losses": 0,
     "net_pnl_u": 0.0
