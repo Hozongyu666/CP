@@ -50,7 +50,7 @@
       "signal_time_tw": "2026-11-25 11:50:50",
       "current_price": 80.16,
       "entry": 80.16,
-      "sl": 81.94935134038123,
+      "sl": 79.99968,
       "sl_pct": 2.2322247260244894,
       "tp1": 77.47597298942816,
       "tp1_pct": 3.348337089036725,
@@ -70,9 +70,9 @@
         "量能確認": "7/18",
         "大盤/RSI": "11/20"
       },
-      "tp1_hit": false,
+      "tp1_hit": true,
       "created_at": 1795578644.1202803,
-      "last_checked_ms": 1795617000000
+      "last_checked_ms": 1795617300000
     },
     "BTC/USDT": {
       "system": "MAIN",
@@ -113,7 +113,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795592452.0848784,
-      "last_checked_ms": 1795617000000
+      "last_checked_ms": 1795617300000
     },
     "ETH/USDT": {
       "system": "MAIN",
@@ -154,7 +154,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795592452.0848784,
-      "last_checked_ms": 1795617000000
+      "last_checked_ms": 1795617300000
     }
   },
   "active_moon": {
@@ -204,7 +204,7 @@
       "realized_u": 0.0,
       "peak_price": 0.03214,
       "created_at": 1795580152.1572008,
-      "last_checked_ms": 1795617000000
+      "last_checked_ms": 1795617300000
     },
     "BLUR/USDT:USDT": {
       "system": "MOONSHOT",
@@ -252,7 +252,7 @@
       "realized_u": 0.0,
       "peak_price": 0.009521,
       "created_at": 1795602952.782966,
-      "last_checked_ms": 1795617000000
+      "last_checked_ms": 1795617300000
     },
     "SSV/USDT:USDT": {
       "system": "MOONSHOT",
@@ -300,7 +300,7 @@
       "realized_u": 0.0,
       "peak_price": 1.875,
       "created_at": 1795610748.8419805,
-      "last_checked_ms": 1795617000000
+      "last_checked_ms": 1795617300000
     }
   },
   "last_heartbeat": 0,
