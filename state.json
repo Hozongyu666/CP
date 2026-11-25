@@ -72,7 +72,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795578644.1202803,
-      "last_checked_ms": 1795611900000
+      "last_checked_ms": 1795612200000
     },
     "BTC/USDT": {
       "system": "MAIN",
@@ -113,7 +113,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795592452.0848784,
-      "last_checked_ms": 1795611900000
+      "last_checked_ms": 1795612200000
     },
     "ETH/USDT": {
       "system": "MAIN",
@@ -154,57 +154,10 @@
       },
       "tp1_hit": false,
       "created_at": 1795592452.0848784,
-      "last_checked_ms": 1795611900000
+      "last_checked_ms": 1795612200000
     }
   },
   "active_moon": {
-    "OPG/USDT:USDT": {
-      "system": "MOONSHOT",
-      "symbol": "OPG/USDT:USDT",
-      "inst_id": "OPG-USDT-SWAP",
-      "timeframe": "1h暴漲起爆",
-      "side": "LONG",
-      "matched_tfs": [
-        "1h"
-      ],
-      "score": 76,
-      "tags": [
-        "🚀 強勢箱體突破",
-        "💣 核爆級巨量 (11.4x)",
-        "🐋 主力狂開倉 OI +26.5%"
-      ],
-      "history_note": "",
-      "signal_time_tw": "2026-11-25 04:40:50",
-      "current_price": 0.15916,
-      "entry": 0.15916,
-      "sl": 0.15995579999999998,
-      "sl_pct": 5.555566725307867,
-      "tp1": 0.18303399999999997,
-      "tp2": 0.214866,
-      "tp3": 0.286488,
-      "leverage": 8,
-      "margin_usdt": 15.0,
-      "notional_usdt": 120.0,
-      "est_loss_sl": 6.7866800703694405,
-      "est_profit_tp1": 17.88,
-      "est_profit_tp2": 41.88,
-      "est_jackpot_u": 65.88,
-      "rr_max": 4.4,
-      "breakdown": {
-        "吸籌壓縮": "20/30",
-        "量能核爆": "25/25 (11.4x)",
-        "異常增倉": "25/25 (1H:+7.4% / 3H:+26.5%)",
-        "軋空燃料": "6/20 (費率:+0.0050%)"
-      },
-      "tp1_hit": true,
-      "tp2_hit": false,
-      "tp3_hit": false,
-      "rem_ratio": 0.7,
-      "realized_u": 5.4,
-      "peak_price": 0.15916,
-      "created_at": 1795552842.7663538,
-      "last_checked_ms": 1795611900000
-    },
     "SLX/USDT:USDT": {
       "system": "MOONSHOT",
       "symbol": "SLX/USDT:USDT",
@@ -251,7 +204,7 @@
       "realized_u": 0.0,
       "peak_price": 0.03214,
       "created_at": 1795580152.1572008,
-      "last_checked_ms": 1795611900000
+      "last_checked_ms": 1795612200000
     },
     "BLUR/USDT:USDT": {
       "system": "MOONSHOT",
@@ -299,7 +252,7 @@
       "realized_u": 0.0,
       "peak_price": 0.009521,
       "created_at": 1795602952.782966,
-      "last_checked_ms": 1795611900000
+      "last_checked_ms": 1795612200000
     },
     "SSV/USDT:USDT": {
       "system": "MOONSHOT",
@@ -347,7 +300,7 @@
       "realized_u": 0.0,
       "peak_price": 1.875,
       "created_at": 1795610748.8419805,
-      "last_checked_ms": 1795611900000
+      "last_checked_ms": 1795612200000
     }
   },
   "last_heartbeat": 0,
@@ -358,16 +311,16 @@
     "net_pnl_u": 0.0
   },
   "stats_moon": {
-    "wins": 2,
+    "wins": 3,
     "losses": 1,
-    "net_pnl_u": 27.92
+    "net_pnl_u": 33.62
   },
   "daily_stats": {
     "date": "2026-11-25",
     "main_sent": 3,
     "moon_sent": 7,
-    "wins": 2,
+    "wins": 3,
     "losses": 1,
-    "net_pnl_u": 27.92
+    "net_pnl_u": 33.62
   }
 }
