@@ -28,54 +28,6 @@
   },
   "active_main": {},
   "active_moon": {
-    "BLUR/USDT:USDT": {
-      "system": "MOONSHOT",
-      "symbol": "BLUR/USDT:USDT",
-      "inst_id": "BLUR-USDT-SWAP",
-      "timeframe": "1h暴漲起爆",
-      "side": "LONG",
-      "matched_tfs": [
-        "1h"
-      ],
-      "score": 72,
-      "tags": [
-        "🚀 強勢箱體突破",
-        "🔥 異常爆量 (3.7x)",
-        "🐳 持倉暴增 OI +5.8%",
-        "🔥 負費率空軍燃料 (-0.041%)"
-      ],
-      "history_note": "",
-      "signal_time_tw": "2026-11-25 18:36:00",
-      "current_price": 0.009521,
-      "entry": 0.009521,
-      "sl": 0.009568604999999999,
-      "sl_pct": 7.5,
-      "tp1": 0.01094915,
-      "tp2": 0.012853350000000001,
-      "tp3": 0.0171378,
-      "leverage": 8,
-      "margin_usdt": 15.0,
-      "notional_usdt": 120.0,
-      "est_loss_sl": 9.12,
-      "est_profit_tp1": 17.88,
-      "est_profit_tp2": 41.88,
-      "est_jackpot_u": 65.88,
-      "rr_max": 4.4,
-      "breakdown": {
-        "吸籌壓縮": "20/30",
-        "量能核爆": "20/25 (3.7x)",
-        "異常增倉": "18/25 (1H:+5.8% / 3H:+5.7%)",
-        "軋空燃料": "14/20 (費率:-0.0406%)"
-      },
-      "tp1_hit": true,
-      "tp2_hit": false,
-      "tp3_hit": false,
-      "rem_ratio": 0.7,
-      "realized_u": 5.4,
-      "peak_price": 0.009521,
-      "created_at": 1795602952.782966,
-      "last_checked_ms": 1795701600000
-    },
     "SSV/USDT:USDT": {
       "system": "MOONSHOT",
       "symbol": "SSV/USDT:USDT",
@@ -122,7 +74,7 @@
       "realized_u": 18.0,
       "peak_price": 2.689,
       "created_at": 1795610748.8419805,
-      "last_checked_ms": 1795701600000
+      "last_checked_ms": 1795701900000
     },
     "INIT/USDT:USDT": {
       "system": "MOONSHOT",
@@ -169,7 +121,7 @@
       "realized_u": 18.0,
       "peak_price": 0.13132,
       "created_at": 1795682445.318364,
-      "last_checked_ms": 1795701600000
+      "last_checked_ms": 1795701900000
     },
     "ONE/USDT:USDT": {
       "system": "MOONSHOT",
@@ -216,7 +168,7 @@
       "realized_u": 0.0,
       "peak_price": 0.0010094,
       "created_at": 1795685742.537094,
-      "last_checked_ms": 1795701600000
+      "last_checked_ms": 1795701900000
     },
     "SEI/USDT:USDT": {
       "system": "MOONSHOT",
@@ -264,7 +216,7 @@
       "realized_u": 0.0,
       "peak_price": 0.03664,
       "created_at": 1795694144.941677,
-      "last_checked_ms": 1795701600000
+      "last_checked_ms": 1795701900000
     },
     "SKY/USDT:USDT": {
       "system": "MOONSHOT",
@@ -311,7 +263,7 @@
       "realized_u": 0.0,
       "peak_price": 0.04731,
       "created_at": 1795697150.6260054,
-      "last_checked_ms": 1795701600000
+      "last_checked_ms": 1795701900000
     }
   },
   "last_heartbeat": 0,
@@ -322,16 +274,16 @@
     "net_pnl_u": -2.39
   },
   "stats_moon": {
-    "wins": 4,
+    "wins": 5,
     "losses": 5,
-    "net_pnl_u": 4.87
+    "net_pnl_u": 10.57
   },
   "daily_stats": {
     "date": "2026-11-26",
     "main_sent": 0,
     "moon_sent": 7,
-    "wins": 2,
+    "wins": 3,
     "losses": 6,
-    "net_pnl_u": -31.14
+    "net_pnl_u": -25.44
   }
 }
