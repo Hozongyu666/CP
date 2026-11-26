@@ -1,12 +1,6 @@
 {
   "version": 6,
   "coin_history": {
-    "MAIN_BTC/USDT": {
-      "last_ts": 1795592452.0848784
-    },
-    "MAIN_ETH/USDT": {
-      "last_ts": 1795592452.0848784
-    },
     "MOON_BLUR/USDT:USDT": {
       "last_ts": 1795602952.782966
     },
@@ -71,7 +65,7 @@
       "realized_u": 5.4,
       "peak_price": 0.009521,
       "created_at": 1795602952.782966,
-      "last_checked_ms": 1795678500000
+      "last_checked_ms": 1795678800000
     },
     "SSV/USDT:USDT": {
       "system": "MOONSHOT",
@@ -119,7 +113,7 @@
       "realized_u": 18.0,
       "peak_price": 2.577,
       "created_at": 1795610748.8419805,
-      "last_checked_ms": 1795678500000
+      "last_checked_ms": 1795678800000
     },
     "BABY/USDT:USDT": {
       "system": "MOONSHOT",
@@ -167,7 +161,7 @@
       "realized_u": 0.0,
       "peak_price": 0.009589,
       "created_at": 1795668941.868463,
-      "last_checked_ms": 1795678500000
+      "last_checked_ms": 1795678800000
     }
   },
   "last_heartbeat": 0,
