@@ -68,7 +68,7 @@
       "realized_u": 5.4,
       "peak_price": 0.009521,
       "created_at": 1795602952.782966,
-      "last_checked_ms": 1795685100000
+      "last_checked_ms": 1795685400000
     },
     "SSV/USDT:USDT": {
       "system": "MOONSHOT",
@@ -116,7 +116,7 @@
       "realized_u": 18.0,
       "peak_price": 2.577,
       "created_at": 1795610748.8419805,
-      "last_checked_ms": 1795685100000
+      "last_checked_ms": 1795685400000
     },
     "BABY/USDT:USDT": {
       "system": "MOONSHOT",
@@ -164,7 +164,7 @@
       "realized_u": 0.0,
       "peak_price": 0.009589,
       "created_at": 1795668941.868463,
-      "last_checked_ms": 1795685100000
+      "last_checked_ms": 1795685400000
     },
     "INIT/USDT:USDT": {
       "system": "MOONSHOT",
@@ -211,7 +211,7 @@
       "realized_u": 5.4,
       "peak_price": 0.09624,
       "created_at": 1795682445.318364,
-      "last_checked_ms": 1795685100000
+      "last_checked_ms": 1795685400000
     }
   },
   "last_heartbeat": 0,
