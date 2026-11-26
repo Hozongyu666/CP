@@ -51,7 +51,7 @@
       "signal_time_tw": "2026-11-25 12:16:01",
       "current_price": 0.03214,
       "entry": 0.03214,
-      "sl": 0.029729500000000002,
+      "sl": 0.0323007,
       "sl_pct": 7.5,
       "tp1": 0.036961,
       "tp2": 0.043389000000000004,
@@ -70,14 +70,14 @@
         "異常增倉": "25/25 (1H:-1.0% / 3H:+22.5%)",
         "軋空燃料": "14/20 (費率:-0.0172%)"
       },
-      "tp1_hit": false,
+      "tp1_hit": true,
       "tp2_hit": false,
       "tp3_hit": false,
-      "rem_ratio": 1.0,
-      "realized_u": 0.0,
+      "rem_ratio": 0.7,
+      "realized_u": 5.4,
       "peak_price": 0.03214,
       "created_at": 1795580152.1572008,
-      "last_checked_ms": 1795660800000
+      "last_checked_ms": 1795661100000
     },
     "BLUR/USDT:USDT": {
       "system": "MOONSHOT",
@@ -125,7 +125,7 @@
       "realized_u": 5.4,
       "peak_price": 0.009521,
       "created_at": 1795602952.782966,
-      "last_checked_ms": 1795660800000
+      "last_checked_ms": 1795661100000
     },
     "SSV/USDT:USDT": {
       "system": "MOONSHOT",
@@ -173,7 +173,7 @@
       "realized_u": 5.4,
       "peak_price": 1.875,
       "created_at": 1795610748.8419805,
-      "last_checked_ms": 1795660800000
+      "last_checked_ms": 1795661100000
     }
   },
   "last_heartbeat": 0,
