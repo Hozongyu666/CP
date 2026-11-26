@@ -48,7 +48,7 @@
       "signal_time_tw": "2026-11-25 20:46:00",
       "current_price": 1.875,
       "entry": 1.875,
-      "sl": 2.42176,
+      "sl": 2.5880799999999997,
       "sl_pct": 5.32243311489007,
       "tp1": 2.15625,
       "tp2": 2.53125,
@@ -72,9 +72,9 @@
       "tp3_hit": false,
       "rem_ratio": 0.4,
       "realized_u": 18.0,
-      "peak_price": 2.752,
+      "peak_price": 2.941,
       "created_at": 1795610748.8419805,
-      "last_checked_ms": 1795703700000
+      "last_checked_ms": 1795704000000
     },
     "INIT/USDT:USDT": {
       "system": "MOONSHOT",
@@ -121,7 +121,7 @@
       "realized_u": 18.0,
       "peak_price": 0.13132,
       "created_at": 1795682445.318364,
-      "last_checked_ms": 1795703700000
+      "last_checked_ms": 1795704000000
     },
     "ONE/USDT:USDT": {
       "system": "MOONSHOT",
@@ -168,7 +168,7 @@
       "realized_u": 0.0,
       "peak_price": 0.0010094,
       "created_at": 1795685742.537094,
-      "last_checked_ms": 1795703700000
+      "last_checked_ms": 1795704000000
     },
     "SEI/USDT:USDT": {
       "system": "MOONSHOT",
@@ -216,7 +216,7 @@
       "realized_u": 0.0,
       "peak_price": 0.03664,
       "created_at": 1795694144.941677,
-      "last_checked_ms": 1795703700000
+      "last_checked_ms": 1795704000000
     },
     "SKY/USDT:USDT": {
       "system": "MOONSHOT",
@@ -263,7 +263,7 @@
       "realized_u": 0.0,
       "peak_price": 0.04731,
       "created_at": 1795697150.6260054,
-      "last_checked_ms": 1795703700000
+      "last_checked_ms": 1795704000000
     }
   },
   "last_heartbeat": 0,
