@@ -88,7 +88,7 @@
       "realized_u": 0.0,
       "peak_price": 0.0010094,
       "created_at": 1795685742.537094,
-      "last_checked_ms": 1795794900000
+      "last_checked_ms": 1795795200000
     },
     "SEI/USDT:USDT": {
       "system": "MOONSHOT",
@@ -136,7 +136,7 @@
       "realized_u": 0.0,
       "peak_price": 0.03664,
       "created_at": 1795694144.941677,
-      "last_checked_ms": 1795794900000
+      "last_checked_ms": 1795795200000
     },
     "ZHONGJI/USDT:USDT": {
       "system": "MOONSHOT",
@@ -183,7 +183,7 @@
       "realized_u": 0.0,
       "peak_price": 69.28,
       "created_at": 1795743946.0899067,
-      "last_checked_ms": 1795794900000
+      "last_checked_ms": 1795795200000
     },
     "MINIMAX/USDT:USDT": {
       "system": "MOONSHOT",
@@ -230,7 +230,7 @@
       "realized_u": 0.0,
       "peak_price": 12.8,
       "created_at": 1795746346.8008254,
-      "last_checked_ms": 1795794900000
+      "last_checked_ms": 1795795200000
     },
     "UNITREE/USDT:USDT": {
       "system": "MOONSHOT",
@@ -278,7 +278,7 @@
       "realized_u": 0.0,
       "peak_price": 104.56,
       "created_at": 1795747548.2818558,
-      "last_checked_ms": 1795794900000
+      "last_checked_ms": 1795795200000
     },
     "YB/USDT:USDT": {
       "system": "MOONSHOT",
@@ -326,7 +326,7 @@
       "realized_u": 0.0,
       "peak_price": 0.06004,
       "created_at": 1795757736.6220305,
-      "last_checked_ms": 1795794900000
+      "last_checked_ms": 1795795200000
     }
   },
   "last_heartbeat": 0,
@@ -342,11 +342,11 @@
     "net_pnl_u": 7.41
   },
   "daily_stats": {
-    "date": "2026-11-27",
+    "date": "2026-11-28",
     "main_sent": 0,
-    "moon_sent": 13,
-    "wins": 2,
-    "losses": 10,
-    "net_pnl_u": -3.16
+    "moon_sent": 0,
+    "wins": 0,
+    "losses": 0,
+    "net_pnl_u": 0.0
   }
 }
