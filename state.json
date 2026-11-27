@@ -39,6 +39,9 @@
     },
     "MOON_MAGIC/USDT:USDT": {
       "last_ts": 1795802136.376581
+    },
+    "MOON_SKY/USDT:USDT": {
+      "last_ts": 1795812348.9106357
     }
   },
   "active_main": {},
@@ -88,7 +91,7 @@
       "realized_u": 0.0,
       "peak_price": 0.0010094,
       "created_at": 1795685742.537094,
-      "last_checked_ms": 1795812000000
+      "last_checked_ms": 1795812300000
     },
     "SEI/USDT:USDT": {
       "system": "MOONSHOT",
@@ -136,7 +139,7 @@
       "realized_u": 0.0,
       "peak_price": 0.03664,
       "created_at": 1795694144.941677,
-      "last_checked_ms": 1795812000000
+      "last_checked_ms": 1795812300000
     },
     "ZHONGJI/USDT:USDT": {
       "system": "MOONSHOT",
@@ -183,7 +186,7 @@
       "realized_u": 0.0,
       "peak_price": 69.28,
       "created_at": 1795743946.0899067,
-      "last_checked_ms": 1795812000000
+      "last_checked_ms": 1795812300000
     },
     "MINIMAX/USDT:USDT": {
       "system": "MOONSHOT",
@@ -230,7 +233,7 @@
       "realized_u": 0.0,
       "peak_price": 12.8,
       "created_at": 1795746346.8008254,
-      "last_checked_ms": 1795812000000
+      "last_checked_ms": 1795812300000
     },
     "UNITREE/USDT:USDT": {
       "system": "MOONSHOT",
@@ -278,7 +281,7 @@
       "realized_u": 0.0,
       "peak_price": 104.56,
       "created_at": 1795747548.2818558,
-      "last_checked_ms": 1795812000000
+      "last_checked_ms": 1795812300000
     },
     "YB/USDT:USDT": {
       "system": "MOONSHOT",
@@ -326,7 +329,55 @@
       "realized_u": 0.0,
       "peak_price": 0.06004,
       "created_at": 1795757736.6220305,
-      "last_checked_ms": 1795812000000
+      "last_checked_ms": 1795812300000
+    },
+    "SKY/USDT:USDT": {
+      "system": "MOONSHOT",
+      "symbol": "SKY/USDT:USDT",
+      "inst_id": "SKY-USDT-SWAP",
+      "timeframe": "1h暴漲起爆",
+      "side": "LONG",
+      "matched_tfs": [
+        "1h"
+      ],
+      "score": 76,
+      "tags": [
+        "🌀 底部極致吸籌壓縮",
+        "📈 放量啟動 (2.8x)",
+        "🐳 持倉暴增 OI +5.3%",
+        "🔥 負費率空軍燃料 (-0.034%)"
+      ],
+      "history_note": "",
+      "signal_time_tw": "2026-11-28 04:45:59",
+      "current_price": 0.05131,
+      "entry": 0.05131,
+      "sl": 0.04856832,
+      "sl_pct": 5.343363866692659,
+      "tp1": 0.059006499999999996,
+      "tp2": 0.06926850000000001,
+      "tp3": 0.09235800000000001,
+      "leverage": 8,
+      "margin_usdt": 15.0,
+      "notional_usdt": 120.0,
+      "est_loss_sl": 6.5320366400311904,
+      "est_profit_tp1": 17.88,
+      "est_profit_tp2": 41.88,
+      "est_jackpot_u": 65.88,
+      "rr_max": 4.4,
+      "breakdown": {
+        "吸籌壓縮": "30/30",
+        "量能核爆": "14/25 (2.8x)",
+        "異常增倉": "18/25 (1H:+5.0% / 3H:+5.3%)",
+        "軋空燃料": "14/20 (費率:-0.0338%)"
+      },
+      "tp1_hit": false,
+      "tp2_hit": false,
+      "tp3_hit": false,
+      "rem_ratio": 1.0,
+      "realized_u": 0.0,
+      "peak_price": 0.05131,
+      "created_at": 1795812348.9106357,
+      "last_checked_ms": 1795812348910
     }
   },
   "last_heartbeat": 0,
@@ -344,7 +395,7 @@
   "daily_stats": {
     "date": "2026-11-28",
     "main_sent": 0,
-    "moon_sent": 1,
+    "moon_sent": 2,
     "wins": 0,
     "losses": 1,
     "net_pnl_u": -6.29
