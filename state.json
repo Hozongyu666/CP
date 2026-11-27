@@ -86,7 +86,7 @@
       "realized_u": 18.0,
       "peak_price": 2.963,
       "created_at": 1795610748.8419805,
-      "last_checked_ms": 1795749000000
+      "last_checked_ms": 1795749300000
     },
     "ONE/USDT:USDT": {
       "system": "MOONSHOT",
@@ -133,7 +133,7 @@
       "realized_u": 0.0,
       "peak_price": 0.0010094,
       "created_at": 1795685742.537094,
-      "last_checked_ms": 1795749000000
+      "last_checked_ms": 1795749300000
     },
     "SEI/USDT:USDT": {
       "system": "MOONSHOT",
@@ -181,7 +181,7 @@
       "realized_u": 0.0,
       "peak_price": 0.03664,
       "created_at": 1795694144.941677,
-      "last_checked_ms": 1795749000000
+      "last_checked_ms": 1795749300000
     },
     "SKY/USDT:USDT": {
       "system": "MOONSHOT",
@@ -228,7 +228,7 @@
       "realized_u": 0.0,
       "peak_price": 0.04731,
       "created_at": 1795697150.6260054,
-      "last_checked_ms": 1795749000000
+      "last_checked_ms": 1795749300000
     },
     "TRB/USDT:USDT": {
       "system": "MOONSHOT",
@@ -276,7 +276,7 @@
       "realized_u": 0.0,
       "peak_price": 13.62,
       "created_at": 1795729248.749414,
-      "last_checked_ms": 1795749000000
+      "last_checked_ms": 1795749300000
     },
     "ZHONGJI/USDT:USDT": {
       "system": "MOONSHOT",
@@ -323,7 +323,7 @@
       "realized_u": 0.0,
       "peak_price": 69.28,
       "created_at": 1795743946.0899067,
-      "last_checked_ms": 1795749000000
+      "last_checked_ms": 1795749300000
     },
     "MINIMAX/USDT:USDT": {
       "system": "MOONSHOT",
@@ -370,54 +370,7 @@
       "realized_u": 0.0,
       "peak_price": 12.8,
       "created_at": 1795746346.8008254,
-      "last_checked_ms": 1795749000000
-    },
-    "BIGTIME/USDT:USDT": {
-      "system": "MOONSHOT",
-      "symbol": "BIGTIME/USDT:USDT",
-      "inst_id": "BIGTIME-USDT-SWAP",
-      "timeframe": "1h暴漲起爆",
-      "side": "LONG",
-      "matched_tfs": [
-        "1h"
-      ],
-      "score": 85,
-      "tags": [
-        "🌀 底部極致吸籌壓縮",
-        "💣 核爆級巨量 (7.7x)",
-        "⚡ 極端負費率軋空 (-0.127%)"
-      ],
-      "history_note": "",
-      "signal_time_tw": "2026-11-27 10:45:55",
-      "current_price": 0.007099,
-      "entry": 0.007099,
-      "sl": 0.006566575000000001,
-      "sl_pct": 7.5,
-      "tp1": 0.00816385,
-      "tp2": 0.00958365,
-      "tp3": 0.0127782,
-      "leverage": 8,
-      "margin_usdt": 15.0,
-      "notional_usdt": 120.0,
-      "est_loss_sl": 9.12,
-      "est_profit_tp1": 17.88,
-      "est_profit_tp2": 41.88,
-      "est_jackpot_u": 65.88,
-      "rr_max": 4.4,
-      "breakdown": {
-        "吸籌壓縮": "30/30",
-        "量能核爆": "25/25 (7.7x)",
-        "異常增倉": "10/25 (1H:-0.1% / 3H:+3.5%)",
-        "軋空燃料": "20/20 (費率:-0.1265%)"
-      },
-      "tp1_hit": false,
-      "tp2_hit": false,
-      "tp3_hit": false,
-      "rem_ratio": 1.0,
-      "realized_u": 0.0,
-      "peak_price": 0.007099,
-      "created_at": 1795747548.2818558,
-      "last_checked_ms": 1795749000000
+      "last_checked_ms": 1795749300000
     },
     "UNITREE/USDT:USDT": {
       "system": "MOONSHOT",
@@ -465,7 +418,7 @@
       "realized_u": 0.0,
       "peak_price": 104.56,
       "created_at": 1795747548.2818558,
-      "last_checked_ms": 1795749000000
+      "last_checked_ms": 1795749300000
     }
   },
   "last_heartbeat": 0,
@@ -477,15 +430,15 @@
   },
   "stats_moon": {
     "wins": 6,
-    "losses": 6,
-    "net_pnl_u": 35.56
+    "losses": 7,
+    "net_pnl_u": 26.44
   },
   "daily_stats": {
     "date": "2026-11-27",
     "main_sent": 0,
     "moon_sent": 6,
     "wins": 1,
-    "losses": 1,
-    "net_pnl_u": 24.99
+    "losses": 2,
+    "net_pnl_u": 15.87
   }
 }
