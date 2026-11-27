@@ -88,7 +88,7 @@
       "realized_u": 0.0,
       "peak_price": 0.0010094,
       "created_at": 1795685742.537094,
-      "last_checked_ms": 1795790700000
+      "last_checked_ms": 1795791000000
     },
     "SEI/USDT:USDT": {
       "system": "MOONSHOT",
@@ -136,7 +136,7 @@
       "realized_u": 0.0,
       "peak_price": 0.03664,
       "created_at": 1795694144.941677,
-      "last_checked_ms": 1795790700000
+      "last_checked_ms": 1795791000000
     },
     "SKY/USDT:USDT": {
       "system": "MOONSHOT",
@@ -183,7 +183,7 @@
       "realized_u": 0.0,
       "peak_price": 0.04731,
       "created_at": 1795697150.6260054,
-      "last_checked_ms": 1795790700000
+      "last_checked_ms": 1795791000000
     },
     "ZHONGJI/USDT:USDT": {
       "system": "MOONSHOT",
@@ -230,7 +230,7 @@
       "realized_u": 0.0,
       "peak_price": 69.28,
       "created_at": 1795743946.0899067,
-      "last_checked_ms": 1795790700000
+      "last_checked_ms": 1795791000000
     },
     "MINIMAX/USDT:USDT": {
       "system": "MOONSHOT",
@@ -277,7 +277,7 @@
       "realized_u": 0.0,
       "peak_price": 12.8,
       "created_at": 1795746346.8008254,
-      "last_checked_ms": 1795790700000
+      "last_checked_ms": 1795791000000
     },
     "UNITREE/USDT:USDT": {
       "system": "MOONSHOT",
@@ -325,7 +325,7 @@
       "realized_u": 0.0,
       "peak_price": 104.56,
       "created_at": 1795747548.2818558,
-      "last_checked_ms": 1795790700000
+      "last_checked_ms": 1795791000000
     },
     "VIRTUAL/USDT:USDT": {
       "system": "MOONSHOT",
@@ -372,7 +372,7 @@
       "realized_u": 0.0,
       "peak_price": 0.3791,
       "created_at": 1795756848.9794657,
-      "last_checked_ms": 1795790700000
+      "last_checked_ms": 1795791000000
     },
     "YB/USDT:USDT": {
       "system": "MOONSHOT",
@@ -420,54 +420,7 @@
       "realized_u": 0.0,
       "peak_price": 0.06004,
       "created_at": 1795757736.6220305,
-      "last_checked_ms": 1795790700000
-    },
-    "PONS/USDT:USDT": {
-      "system": "MOONSHOT",
-      "symbol": "PONS/USDT:USDT",
-      "inst_id": "PONS-USDT-SWAP",
-      "timeframe": "1h暴漲起爆",
-      "side": "LONG",
-      "matched_tfs": [
-        "1h"
-      ],
-      "score": 76,
-      "tags": [
-        "🚀 強勢箱體突破",
-        "💣 核爆級巨量 (5.0x)",
-        "🐋 主力狂開倉 OI +14.4%"
-      ],
-      "history_note": "",
-      "signal_time_tw": "2026-11-27 16:50:51",
-      "current_price": 0.10821,
-      "entry": 0.10821,
-      "sl": 0.10139602641273716,
-      "sl_pct": 6.296990654526232,
-      "tp1": 0.1244415,
-      "tp2": 0.1460835,
-      "tp3": 0.194778,
-      "leverage": 8,
-      "margin_usdt": 15.0,
-      "notional_usdt": 120.0,
-      "est_loss_sl": 7.676388785431479,
-      "est_profit_tp1": 17.88,
-      "est_profit_tp2": 41.88,
-      "est_jackpot_u": 65.88,
-      "rr_max": 4.4,
-      "breakdown": {
-        "吸籌壓縮": "20/30",
-        "量能核爆": "25/25 (5.0x)",
-        "異常增倉": "25/25 (1H:+3.7% / 3H:+14.4%)",
-        "軋空燃料": "6/20 (費率:+0.0050%)"
-      },
-      "tp1_hit": false,
-      "tp2_hit": false,
-      "tp3_hit": false,
-      "rem_ratio": 1.0,
-      "realized_u": 0.0,
-      "peak_price": 0.10821,
-      "created_at": 1795769442.5961292,
-      "last_checked_ms": 1795790700000
+      "last_checked_ms": 1795791000000
     }
   },
   "last_heartbeat": 0,
@@ -479,15 +432,15 @@
   },
   "stats_moon": {
     "wins": 7,
-    "losses": 12,
-    "net_pnl_u": 27.91
+    "losses": 13,
+    "net_pnl_u": 20.23
   },
   "daily_stats": {
     "date": "2026-11-27",
     "main_sent": 0,
     "moon_sent": 13,
     "wins": 2,
-    "losses": 7,
-    "net_pnl_u": 17.34
+    "losses": 8,
+    "net_pnl_u": 9.66
   }
 }
