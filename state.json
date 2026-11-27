@@ -36,6 +36,9 @@
     },
     "MOON_SSV/USDT:USDT": {
       "last_ts": 1795787746.7988765
+    },
+    "MOON_MAGIC/USDT:USDT": {
+      "last_ts": 1795802136.376581
     }
   },
   "active_main": {},
@@ -85,7 +88,7 @@
       "realized_u": 0.0,
       "peak_price": 0.0010094,
       "created_at": 1795685742.537094,
-      "last_checked_ms": 1795801800000
+      "last_checked_ms": 1795802100000
     },
     "SEI/USDT:USDT": {
       "system": "MOONSHOT",
@@ -133,7 +136,7 @@
       "realized_u": 0.0,
       "peak_price": 0.03664,
       "created_at": 1795694144.941677,
-      "last_checked_ms": 1795801800000
+      "last_checked_ms": 1795802100000
     },
     "ZHONGJI/USDT:USDT": {
       "system": "MOONSHOT",
@@ -180,7 +183,7 @@
       "realized_u": 0.0,
       "peak_price": 69.28,
       "created_at": 1795743946.0899067,
-      "last_checked_ms": 1795801800000
+      "last_checked_ms": 1795802100000
     },
     "MINIMAX/USDT:USDT": {
       "system": "MOONSHOT",
@@ -227,7 +230,7 @@
       "realized_u": 0.0,
       "peak_price": 12.8,
       "created_at": 1795746346.8008254,
-      "last_checked_ms": 1795801800000
+      "last_checked_ms": 1795802100000
     },
     "UNITREE/USDT:USDT": {
       "system": "MOONSHOT",
@@ -275,7 +278,7 @@
       "realized_u": 0.0,
       "peak_price": 104.56,
       "created_at": 1795747548.2818558,
-      "last_checked_ms": 1795801800000
+      "last_checked_ms": 1795802100000
     },
     "YB/USDT:USDT": {
       "system": "MOONSHOT",
@@ -323,7 +326,54 @@
       "realized_u": 0.0,
       "peak_price": 0.06004,
       "created_at": 1795757736.6220305,
-      "last_checked_ms": 1795801800000
+      "last_checked_ms": 1795802100000
+    },
+    "MAGIC/USDT:USDT": {
+      "system": "MOONSHOT",
+      "symbol": "MAGIC/USDT:USDT",
+      "inst_id": "MAGIC-USDT-SWAP",
+      "timeframe": "1h暴漲起爆",
+      "side": "LONG",
+      "matched_tfs": [
+        "1h"
+      ],
+      "score": 76,
+      "tags": [
+        "🚀 強勢箱體突破",
+        "💣 核爆級巨量 (6.5x)",
+        "🐋 主力狂開倉 OI +17.0%"
+      ],
+      "history_note": "",
+      "signal_time_tw": "2026-11-28 01:55:48",
+      "current_price": 0.07405,
+      "entry": 0.07405,
+      "sl": 0.07101728,
+      "sl_pct": 4.095503038487512,
+      "tp1": 0.0851575,
+      "tp2": 0.09996750000000001,
+      "tp3": 0.13329000000000002,
+      "leverage": 10,
+      "margin_usdt": 15.0,
+      "notional_usdt": 150.0,
+      "est_loss_sl": 6.2932545577312675,
+      "est_profit_tp1": 22.35,
+      "est_profit_tp2": 52.35,
+      "est_jackpot_u": 82.35,
+      "rr_max": 5.5,
+      "breakdown": {
+        "吸籌壓縮": "20/30",
+        "量能核爆": "25/25 (6.5x)",
+        "異常增倉": "25/25 (1H:+3.1% / 3H:+17.0%)",
+        "軋空燃料": "6/20 (費率:+0.0050%)"
+      },
+      "tp1_hit": false,
+      "tp2_hit": false,
+      "tp3_hit": false,
+      "rem_ratio": 1.0,
+      "realized_u": 0.0,
+      "peak_price": 0.07405,
+      "created_at": 1795802136.376581,
+      "last_checked_ms": 1795802136376
     }
   },
   "last_heartbeat": 0,
@@ -341,7 +391,7 @@
   "daily_stats": {
     "date": "2026-11-28",
     "main_sent": 0,
-    "moon_sent": 0,
+    "moon_sent": 1,
     "wins": 0,
     "losses": 0,
     "net_pnl_u": 0.0
