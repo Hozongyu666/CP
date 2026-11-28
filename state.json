@@ -1,9 +1,6 @@
 {
   "version": 6,
   "coin_history": {
-    "MOON_SSV/USDT:USDT": {
-      "last_ts": 1795787746.7988765
-    },
     "MOON_MAGIC/USDT:USDT": {
       "last_ts": 1795802136.376581
     },
@@ -69,7 +66,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795873857.6701114,
-      "last_checked_ms": 1795873857670
+      "last_checked_ms": 1795874100000
     },
     "SUI/USDT": {
       "system": "MAIN",
@@ -110,7 +107,7 @@
       },
       "tp1_hit": false,
       "created_at": 1795873857.6701114,
-      "last_checked_ms": 1795873857670
+      "last_checked_ms": 1795874100000
     }
   },
   "active_moon": {
@@ -160,7 +157,7 @@
       "realized_u": 0.0,
       "peak_price": 0.03664,
       "created_at": 1795694144.941677,
-      "last_checked_ms": 1795873800000
+      "last_checked_ms": 1795874100000
     },
     "ZHONGJI/USDT:USDT": {
       "system": "MOONSHOT",
@@ -207,7 +204,7 @@
       "realized_u": 6.75,
       "peak_price": 69.28,
       "created_at": 1795743946.0899067,
-      "last_checked_ms": 1795873800000
+      "last_checked_ms": 1795874100000
     },
     "MINIMAX/USDT:USDT": {
       "system": "MOONSHOT",
@@ -254,7 +251,7 @@
       "realized_u": 0.0,
       "peak_price": 12.8,
       "created_at": 1795746346.8008254,
-      "last_checked_ms": 1795873800000
+      "last_checked_ms": 1795874100000
     },
     "UNITREE/USDT:USDT": {
       "system": "MOONSHOT",
@@ -302,7 +299,7 @@
       "realized_u": 0.0,
       "peak_price": 104.56,
       "created_at": 1795747548.2818558,
-      "last_checked_ms": 1795873800000
+      "last_checked_ms": 1795874100000
     },
     "YB/USDT:USDT": {
       "system": "MOONSHOT",
@@ -350,7 +347,7 @@
       "realized_u": 0.0,
       "peak_price": 0.06004,
       "created_at": 1795757736.6220305,
-      "last_checked_ms": 1795873800000
+      "last_checked_ms": 1795874100000
     },
     "SKY/USDT:USDT": {
       "system": "MOONSHOT",
@@ -398,7 +395,7 @@
       "realized_u": 0.0,
       "peak_price": 0.05131,
       "created_at": 1795812348.9106357,
-      "last_checked_ms": 1795873800000
+      "last_checked_ms": 1795874100000
     },
     "NIGHT/USDT:USDT": {
       "system": "MOONSHOT",
@@ -445,7 +442,7 @@
       "realized_u": 0.0,
       "peak_price": 0.052515,
       "created_at": 1795858854.5268445,
-      "last_checked_ms": 1795873800000
+      "last_checked_ms": 1795874100000
     },
     "LAB/USDT:USDT": {
       "system": "MOONSHOT",
@@ -492,7 +489,7 @@
       "realized_u": 0.0,
       "peak_price": 0.03311,
       "created_at": 1795864856.9466598,
-      "last_checked_ms": 1795873800000
+      "last_checked_ms": 1795874100000
     }
   },
   "last_heartbeat": 0,
